@@ -19,7 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed Rain Overhaul", "Seed 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better Game Speed", "Better Game Speed\Better Game Speed.csproj", "{8C62C95A-B4A2-4640-8B1D-CCD97562DD39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plant and Zombie Spawner", "Plant and Zombie Spawner\Plant and Zombie Spawner.csproj", "{CAE647A6-AA83-4696-8210-67A5FA190B97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plant and Zombie Spawner", "Plant and Zombie Spawner\Plant and Zombie Spawner.csproj", "{CAE647A6-AA83-4696-8210-67A5FA190B97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E5B5979-8389-4E3F-A32F-6FA3208C764C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
