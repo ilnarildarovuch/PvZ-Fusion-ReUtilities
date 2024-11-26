@@ -1,8 +1,9 @@
 ﻿using Il2Cpp;
 using MelonLoader;
 using UnityEngine;
+using HarmonyLib;
 
-[assembly: MelonInfo(typeof(Plant_Conveyor.Core), "Plant Conveyor", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Plant_Conveyor.Core), "Plant Conveyor", "1.1.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Plant_Conveyor
@@ -55,12 +56,12 @@ namespace Plant_Conveyor
 
 				if (Input.GetKeyDown(KeyCode.K))
 				{
-					num--;
+					num -= 13;
 				}
 					
 				if (Input.GetKeyDown(KeyCode.L))
 				{
-					num++;
+					num += 13;
 				}
 
 				if (num != 0)
@@ -85,6 +86,23 @@ namespace Plant_Conveyor
 						component.theSeedCost = 0;
 					}
 				}
+			}
+		}
+
+		private static class Patch
+		{
+			[HarmonyPatch(typeof(CardUI))]
+			public static class CardUI_Patch
+			{
+				[HarmonyPostfix]
+				[HarmonyPatch("Update")]
+                public static void Update(CardUI __instance)
+                {
+                    {
+                        __instance.CD = __instance.fullCD;
+                        __instance.isAvailable = true;
+                    }
+                }
 			}
 		}
 	}
