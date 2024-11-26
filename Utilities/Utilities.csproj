@@ -304,6 +304,8 @@
 
 	<ItemGroup>
 		<Compile Include="Core.cs" />
+		<Compile Include="Patches.cs" />
+		<Compile Include="Utility.cs" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
