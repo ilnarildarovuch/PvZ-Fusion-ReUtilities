@@ -20,7 +20,7 @@ namespace Plant_and_Zombie_Spawner
         {
             if (Board.Instance != null)
             {
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.C))
                 {
                     if (Patch.GetSeedType.SeedType != -1)
                     {

@@ -38,15 +38,14 @@ namespace Better_Time_Stop
 				speedTrigger = !speedTrigger;
 			}
 
-			// Adjust time stop duration with Q and E keys if enabled
 			if (configEnable.Value)
 			{
-				if (Input.GetKeyDown(KeyCode.E) && configTime.Value < 0.2f)
+				if (Input.GetKeyDown(KeyCode.X) && configTime.Value < 0.2f)
 				{
 					configTime.Value += 0.01f;
 					MelonPreferences.Save();
 				}
-				if (Input.GetKeyDown(KeyCode.W) && configTime.Value > 0.01f)
+				if (Input.GetKeyDown(KeyCode.Z) && configTime.Value > 0.01f)
 				{
 					configTime.Value -= 0.01f;
 					MelonPreferences.Save();

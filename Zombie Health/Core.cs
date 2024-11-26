@@ -37,7 +37,7 @@ namespace Zombie_Health
 
         public override void OnUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.F8))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 opendrawbl = !opendrawbl;
                 MelonLogger.Msg($"Drawing toggled to {opendrawbl}");

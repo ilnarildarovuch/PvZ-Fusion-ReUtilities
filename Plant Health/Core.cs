@@ -37,7 +37,7 @@ namespace Plant_Health
 
 		public override void OnUpdate()
 		{
-			if (Input.GetKeyDown(KeyCode.F9))
+			if (Input.GetKeyDown(KeyCode.Q))
 			{
 				opendrawbl = !opendrawbl;
 				MelonLogger.Msg($"Drawing toggled to {opendrawbl}");
