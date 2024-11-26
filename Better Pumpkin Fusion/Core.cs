@@ -23,11 +23,6 @@ namespace Better_Pumpkin_Fusion
             MelonLogger.Msg("Better Pumpkin Fusion is loaded!");
         }
 
-        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
-        {
-            MelonLogger.Msg("Scene Loaded: " + sceneName);
-        }
-
         public override void OnUpdate()
         {
             if (Board.Instance != null && Mouse.Instance.theItemOnMouse != null && Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift))

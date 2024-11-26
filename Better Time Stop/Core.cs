@@ -19,8 +19,9 @@ namespace Better_Time_Stop
 			MelonLogger.Msg("Better Time Stop is loaded!");
 
 			// Configuration setup
-			configTime = MelonPreferences.CreateEntry("Better Time Stop", "Time", 0.2f, "Time Stop Duration");
-			configEnable = MelonPreferences.CreateEntry("Better Time Stop", "EnableKey", true, "Enable shortcut keys for adjusting time stop speed");
+			var category = MelonPreferences.CreateCategory("Better Time Stop", "");
+			configTime = category.CreateEntry("Time", 0.2f, "Time Stop Duration");
+			configEnable = category.CreateEntry("EnableKey", true, "Enable shortcut keys for adjusting time stop speed");
 
 		}
 

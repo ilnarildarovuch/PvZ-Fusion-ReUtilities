@@ -17,9 +17,10 @@ namespace Better_Game_Speed
 		public override void OnInitializeMelon()
 		{
 			MelonLogger.Msg("Better Game Speed is loaded!");
-			configSpeed = MelonPreferences.CreateEntry("Better Game Speed", "Time", 1f, "Game speed");
-			configEnable = MelonPreferences.CreateEntry("Better Game Speed", "EnableKey", true, "Enable shortcut keys for adjusting game speed");
-			configPause = MelonPreferences.CreateEntry("Better Game Speed", "Pause", false, "Pause game");
+			var category = MelonPreferences.CreateCategory("Better Game Speed", "");
+			configSpeed = category.CreateEntry("Time", 1f, "Game speed");
+			configEnable = category.CreateEntry("EnableKey", true, "Enable shortcut keys for adjusting game speed");
+			configPause = category.CreateEntry("Pause", false, "Pause game");
 			instance = this;
 		}
 
