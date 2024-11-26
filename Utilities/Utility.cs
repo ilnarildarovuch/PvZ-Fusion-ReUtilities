@@ -14,12 +14,12 @@ namespace Utilities
 			UnliSun, // F1 Done
 			UnliCoins, // F2 Done
 			NoCooldown, // F3 Done
-			InvulPlants, // F4 Done
-			InvulZombies, // F5 Done
-			ColumnPlants, // F6 Done
+			ColumnPlants, // F4 Done
+			InvulPlants, // F5 Done
+			InvulZombies, // F6 Done
 			DoubleDamage, // F7 Done
 			SuperDamage, // F8 Done
-			StopZombieSpawn, // F9
+			StopZombieSpawn, // F9 Done
 			StopGameOver, // F10 Done
 			DeveloperMode, // F11 Done
 			ShowUtilities // F12 Done
@@ -60,9 +60,9 @@ namespace Utilities
 			{UtilityType.UnliSun, new UtilityFeature("Unlimited Sun", UtilityType.UnliSun, KeyCode.F1)},
 			{UtilityType.UnliCoins, new UtilityFeature("Unlimited Coins", UtilityType.UnliCoins, KeyCode.F2)},
 			{UtilityType.NoCooldown, new UtilityFeature("No Cooldown", UtilityType.NoCooldown, KeyCode.F3)},
-			{UtilityType.InvulPlants, new UtilityFeature("Invulnerable Plants", UtilityType.InvulPlants, KeyCode.F4)},
-			{UtilityType.InvulZombies, new UtilityFeature("Invulnerable Zombies", UtilityType.InvulZombies, KeyCode.F5)},
-			{UtilityType.ColumnPlants, new UtilityFeature("Column Plants", UtilityType.ColumnPlants, KeyCode.F6)},
+			{UtilityType.ColumnPlants, new UtilityFeature("Column Plants", UtilityType.ColumnPlants, KeyCode.F4)},
+			{UtilityType.InvulPlants, new UtilityFeature("Invulnerable Plants", UtilityType.InvulPlants, KeyCode.F5)},
+			{UtilityType.InvulZombies, new UtilityFeature("Invulnerable Zombies", UtilityType.InvulZombies, KeyCode.F6)},	
 			{UtilityType.DoubleDamage, new UtilityFeature("Double Plant Damage", UtilityType.DoubleDamage, KeyCode.F7)},
 			{UtilityType.SuperDamage, new UtilityFeature("Super Plant Damage", UtilityType.SuperDamage, KeyCode.F8)},
 			{UtilityType.StopZombieSpawn, new UtilityFeature("Stop Zombie Spawn", UtilityType.StopZombieSpawn, KeyCode.F9)},
