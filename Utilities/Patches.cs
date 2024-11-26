@@ -122,38 +122,12 @@ namespace Utilities
 		{
 			[HarmonyPrefix]
 			[HarmonyPatch("TakeDamage")]
-			private static void TakeDamage(Plant __instance, int damage)
+			private static void TakeDamage(ref int damage)
 			{
 				if (Utility.GetActive(Utility.UtilityType.InvulPlants))
 				{
 					damage = 0;
 				}
-			}
-
-			[HarmonyPrefix]
-			[HarmonyPatch("Crashed")]
-			static bool Crashed(Plant __instance)
-			{
-				if (Utility.GetActive(Utility.UtilityType.InvulPlants))
-				{
-					__instance.isCrashed = false;
-					return false;
-				}
-
-				return true;
-			}
-
-			[HarmonyPrefix]
-			[HarmonyPatch("Die")]
-			static bool Die(Plant __instance)
-			{
-				if (Utility.GetActive(Utility.UtilityType.InvulPlants))
-				{
-					__instance.isCrashed = false;
-					return false;
-				}
-
-				return true;
 			}
 		}
 
@@ -162,7 +136,7 @@ namespace Utilities
 		{
 			[HarmonyPrefix]
 			[HarmonyPatch("TakeDamage")]
-			private static void TakeDamage(Zombie __instance, int theDamage)
+			private static void TakeDamage(ref int theDamage)
 			{
 				if (Utility.GetActive(Utility.UtilityType.InvulZombies))
 				{
