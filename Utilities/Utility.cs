@@ -64,7 +64,7 @@ namespace Utilities
 			{UtilityType.InvulPlants, new UtilityFeature("Invulnerable Plants", UtilityType.InvulPlants, KeyCode.F5)},
 			{UtilityType.InvulZombies, new UtilityFeature("Invulnerable Zombies", UtilityType.InvulZombies, KeyCode.F6)},	
 			{UtilityType.DoubleDamage, new UtilityFeature("Double Plant Damage", UtilityType.DoubleDamage, KeyCode.F7)},
-			{UtilityType.SuperDamage, new UtilityFeature("Super Plant Damage", UtilityType.SuperDamage, KeyCode.F8)},
+			{UtilityType.SuperDamage, new UtilityFeature("10x Plant Damage", UtilityType.SuperDamage, KeyCode.F8)},
 			{UtilityType.StopZombieSpawn, new UtilityFeature("Stop Zombie Spawn", UtilityType.StopZombieSpawn, KeyCode.F9)},
 			{UtilityType.StopGameOver, new UtilityFeature("Stop Game Over", UtilityType.StopGameOver, KeyCode.F10)},
 			{UtilityType.DeveloperMode, new UtilityFeature("Developer Mode", UtilityType.DeveloperMode, KeyCode.F11)},
