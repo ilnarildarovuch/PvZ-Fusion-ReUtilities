@@ -51,9 +51,9 @@ namespace Odyssey_Buffs
 				if (GameAPP.theBoardLevel == 8 && GameAPP.theBoardType == 3)
 				{
 					// MelonLogger.Msg("Board Level and Board Type: " + GameAPP.theBoardLevel + " " + GameAPP.theBoardType);
-					if (Core.instance.configEnableTravel.Value)
+					if (!Core.instance.configEnableTravel.Value)
 					{
-						MelonLogger.Msg("configEnableTravel Value = " + Core.instance.configEnableTravel.Value);
+						// MelonLogger.Msg("configEnableTravel Value = " + Core.instance.configEnableTravel.Value);
 						return;
 					}
 				}
@@ -63,7 +63,7 @@ namespace Odyssey_Buffs
 					// MelonLogger.Msg("Board Type: " + GameAPP.theBoardType);
 					if (Core.instance.configEnableIZ.Value)
 					{
-						MelonLogger.Msg("configEnableIZ Value = " + Core.instance.configEnableIZ.Value);
+						// MelonLogger.Msg("configEnableIZ Value = " + Core.instance.configEnableIZ.Value);
 						return;
 					}
 				}
