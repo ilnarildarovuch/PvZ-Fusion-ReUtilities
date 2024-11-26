@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Plant_Health.Core), "Plant Health", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Plant_Health.Core), "Plant Health", "1.0.1", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Plant_Health

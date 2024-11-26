@@ -3,7 +3,7 @@ using Il2CppTMPro;
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Better_Time_Stop.Core), "Better Time Stop", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Time_Stop.Core), "Better Time Stop", "1.0.1", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Time_Stop
