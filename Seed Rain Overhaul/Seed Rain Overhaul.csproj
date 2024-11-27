@@ -305,6 +305,7 @@
 	<ItemGroup>
 		<Compile Include="Board_Awake_Patch.cs" />
 		<Compile Include="Core.cs" />
+		<Compile Include="CreatePlant_Patch.cs" />
 		<Compile Include="FixRainCardShow_Patch.cs" />
 	</ItemGroup>
 	
