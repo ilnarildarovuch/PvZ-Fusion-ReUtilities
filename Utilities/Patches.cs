@@ -63,27 +63,89 @@ namespace Utilities
 			{
 				if (Utility.GetActive(Utility.UtilityType.UnliSun))
 				{
-					__instance.theSun = 9999;
+					__instance.theSun = 99999;
 				}
 
 				if (Utility.GetActive(Utility.UtilityType.UnliCoins))
 				{
-					__instance.theMoney = 999999999;
+					__instance.theMoney = 2147400000;
 				}
 
 				__instance.freeCD = Utility.GetActive(Utility.UtilityType.DeveloperMode);
-
-				if (Utility.GetActive(Utility.UtilityType.ColumnPlants))
-				{
-					Board.BoardTag newTag = __instance.boardTag;
-					newTag.isColumn = true;
-					__instance.boardTag = newTag;
-				}
 
 				if (Utility.GetActive(Utility.UtilityType.StopZombieSpawn))
 				{
 					__instance.newZombieWaveCountDown = 15f;
 				}
+
+				Board.BoardTag boardTag = Board.Instance.boardTag;
+				boardTag.isScaredyDream = (Utility.GetActive(Utility.UtilityType.ScaredyDream));
+				boardTag.isSeedRain = (Utility.GetActive(Utility.UtilityType.SeedRain));
+				boardTag.isNight = (Utility.GetActive(Utility.UtilityType.SeedRain));
+				Board.Instance.boardTag = boardTag;
+				
+			}
+		}
+
+		[HarmonyPatch(typeof(Mouse))]
+		public static class Mouse_Patch
+		{
+			[HarmonyPrefix]
+			[HarmonyPatch("TryToSetPlantByCard")]
+			private static void TryToSetPlantByCard(Mouse __instance)
+			{
+				if (Utility.GetActive(Utility.UtilityType.ColumnPlants))
+				{
+					for (int i = 0; i < Board.Instance.rowNum; i++)
+					{
+						if (i != __instance.theMouseRow)
+						{
+							CreatePlant.Instance.SetPlant(__instance.theMouseColumn, i, __instance.thePlantTypeOnMouse, null, default(Vector2), false, 0f);
+						}
+					}
+				}
+			}
+		}
+
+		[HarmonyPatch(typeof(CreatePlant))]
+		public static class CreatePlant_Patch
+		{
+			#if X
+			[HarmonyPostfix]
+			[HarmonyPatch("CheckBox")]
+			private static void CheckBox(ref bool __result)
+			{
+				if (Utility.GetActive(Utility.UtilityType.PlantEverywhere))
+				{
+					__result = true;
+				}
+			}
+			#endif
+
+			[HarmonyPrefix]
+			[HarmonyPatch("SetPlant")]
+			private static void SetPlant(ref bool isFreeSet)
+			{
+                if (Utility.GetActive(Utility.UtilityType.PlantEverywhere))
+                {
+                    isFreeSet = true;
+                }
+			}
+
+			[HarmonyPrefix]
+			[HarmonyPatch("Lim")]
+			private static bool Lim(ref bool __result)
+			{
+				__result = false;
+				return false;
+			}
+
+			[HarmonyPrefix]
+			[HarmonyPatch("LimTravel")]
+			private static bool LimTravel(ref bool __result)
+			{
+				__result = false;
+				return false;
 			}
 		}
 
@@ -95,6 +157,10 @@ namespace Utilities
 			private static void Update(InGameUIMgr __instance)
 			{
 				if (Utility.GetActive(Utility.UtilityType.UnliSun))
+				{
+					__instance.sun.text = "∞";
+				}
+				if (Utility.GetActive(Utility.UtilityType.DeveloperMode))
 				{
 					__instance.sun.text = "∞";
 				}
@@ -114,6 +180,12 @@ namespace Utilities
 					__instance.beanCount.text = "∞";
 					__instance.beanCount2.text = "∞";
 				}
+				if (Utility.GetActive(Utility.UtilityType.DeveloperMode))
+				{
+					__instance.textMesh.text = "∞";
+					__instance.beanCount.text = "∞";
+					__instance.beanCount2.text = "∞";
+				}
 			}
 		}
 
@@ -127,6 +199,16 @@ namespace Utilities
 				if (Utility.GetActive(Utility.UtilityType.InvulPlants))
 				{
 					damage = 0;
+				}
+			}
+
+			[HarmonyPostfix]
+			[HarmonyPatch("Update")]
+			private static void Update(Plant __instance)
+			{
+				if (Input.GetKeyDown(KeyCode.KeypadPlus))
+				{
+					__instance.Die(0);
 				}
 			}
 		}
@@ -161,7 +243,72 @@ namespace Utilities
 			private static void Update(GameAPP __instance)
 			{
 				GameAPP.developerMode = Utility.GetActive(Utility.UtilityType.DeveloperMode);
+				Generate();
+			}
 
+			private static void Generate()
+			{
+				if (Input.GetKeyDown(KeyCode.Keypad0))
+				{
+					Utility.SpawnItem("Board/Award/TrophyPrefab");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad1))
+				{
+					Utility.SpawnItem("Items/Fertilize/Ferilize");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad2))
+				{
+					Utility.SpawnItem("Items/Bucket");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad3))
+				{
+					Utility.SpawnItem("Items/Helmet");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad4))
+				{
+					Utility.SpawnItem("Items/JackBox");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad5))
+				{
+					Utility.SpawnItem("Items/Pickaxe");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad6))
+				{
+					Utility.SpawnItem("Items/Machine");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad7))
+				{
+					Board.Instance.CreateUltimateMateorite();
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad8))
+				{
+					foreach (Zombie zombie in Board.Instance.zombieArray)
+					{
+						if (zombie != null)
+						{
+							zombie.SetMindControl(false);
+						}
+					}
+				}
+
+				if (Input.GetKeyDown(KeyCode.Keypad9))
+				{
+					foreach (Zombie zombie in Board.Instance.zombieArray)
+					{
+						if (zombie != null && !zombie.isMindControlled)
+						{
+							zombie.Die(1);
+						}
+					}
+				}
 			}
 		}
 
