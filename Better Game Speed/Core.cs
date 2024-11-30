@@ -11,6 +11,10 @@ namespace Better_Game_Speed
 	public class Core : MelonMod
 	{
 		public static Core instance;
+		public static MelonPreferences_Entry<KeyCode> configDecrease;
+		public static MelonPreferences_Entry<KeyCode> configIncrease;
+		public static MelonPreferences_Entry<KeyCode> configPauseKey;
+
 		public static MelonPreferences_Entry<float> configSpeed;
 		public static MelonPreferences_Entry<bool> configEnable;
 		public static MelonPreferences_Entry<bool> configPause;
@@ -18,6 +22,11 @@ namespace Better_Game_Speed
 		{
 			MelonLogger.Msg("Better Game Speed is loaded!");
 			var category = MelonPreferences.CreateCategory("Better Game Speed", "");
+
+            configDecrease = category.CreateEntry("Decrease Speed Hotkey", KeyCode.A, "Decrease game speed");
+			configIncrease = category.CreateEntry("Increase Speed Hotkey", KeyCode.D, "Increase game speed");
+			configPauseKey = category.CreateEntry("Pause Hotkey", KeyCode.S, "Pause game");
+
 			configSpeed = category.CreateEntry("Time", 1f, "Game speed");
 			configEnable = category.CreateEntry("EnableKey", true, "Enable shortcut keys for adjusting game speed");
 			configPause = category.CreateEntry("Pause", false, "Pause game");
@@ -31,13 +40,13 @@ namespace Better_Game_Speed
 			{
 				if (configPause.Value == false)
 				{ 
-					if (Input.GetKeyDown(KeyCode.D) && configSpeed.Value < 3f)
+					if (Input.GetKeyDown(configIncrease.Value) && configSpeed.Value < 3f)
 					{
 						configSpeed.Value += 0.5f;
 						MelonPreferences.Save();
 						UpdateGameSpeed();
 					}
-					if (Input.GetKeyDown(KeyCode.A) && configSpeed.Value > 1f)
+					if (Input.GetKeyDown(configDecrease.Value) && configSpeed.Value > 1f)
 					{
 						configSpeed.Value -= 0.5f;
 						MelonPreferences.Save();
@@ -45,7 +54,7 @@ namespace Better_Game_Speed
 					}
 				}
 
-				if (Input.GetKeyDown(KeyCode.S))
+				if (Input.GetKeyDown(configPauseKey.Value))
 				{
 					configPause.Value = !configPause.Value;
 					MelonPreferences.Save();
