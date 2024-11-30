@@ -19,7 +19,7 @@ namespace Utilities
 
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("Better Game Speed is loaded!");
+            MelonLogger.Msg("Utilities Addon is loaded!");
         }
 
         public override void OnLateInitializeMelon() => dtStart = DateTime.Now;
