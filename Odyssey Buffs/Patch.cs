@@ -41,7 +41,7 @@ namespace Odyssey_Buffs
 
 			if (travelMgr == null)
 			{
-				travelMgr = gameObject.AddComponent<TravelMgr>();
+				travelMgr = gameObject.AddComponent<TravelMgr>();	
 			}
 
 			// Handle IZ and travel entries configuration
@@ -61,7 +61,7 @@ namespace Odyssey_Buffs
 				if (GameAPP.theBoardType == 2)
 				{
 					// MelonLogger.Msg("Board Type: " + GameAPP.theBoardType);
-					if (Core.instance.configEnableIZ.Value)
+					if (!Core.instance.configEnableIZ.Value)
 					{
 						// MelonLogger.Msg("configEnableIZ Value = " + Core.instance.configEnableIZ.Value);
 						return;
