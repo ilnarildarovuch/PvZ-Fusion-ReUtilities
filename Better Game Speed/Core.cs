@@ -21,14 +21,14 @@ namespace Better_Game_Speed
 		public override void OnInitializeMelon()
 		{
 			MelonLogger.Msg("Better Game Speed is loaded!");
-			var category = MelonPreferences.CreateCategory("Hotkeys", " ");
+			var category = MelonPreferences.CreateCategory("Better Game Speed", " ");
 
-            configDecrease = category.CreateEntry("Decrease Speed Hotkey", KeyCode.A, "Decrease game speed");
+			configDecrease = category.CreateEntry("Decrease Speed Hotkey", KeyCode.A, "Decrease game speed");
 			configIncrease = category.CreateEntry("Increase Speed Hotkey", KeyCode.D, "Increase game speed");
 			configPauseKey = category.CreateEntry("Pause Hotkey", KeyCode.S, "Pause game");
 
-			configSpeed = category.CreateEntry("Time", 1f, "Game speed");
 			configEnable = category.CreateEntry("EnableKey", true, "Enable shortcut keys for adjusting game speed");
+			configSpeed = category.CreateEntry("Time", 1f, "Game speed");
 			configPause = category.CreateEntry("Pause", false, "Pause game");
 			instance = this;
 		}

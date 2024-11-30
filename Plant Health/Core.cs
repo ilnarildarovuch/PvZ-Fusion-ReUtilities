@@ -25,8 +25,8 @@ namespace Plant_Health
 				alignment = TextAnchor.MiddleCenter
 			};
 
-			var category = MelonPreferences.CreateCategory("Hotkeys", " ");
-            keybind = category.CreateEntry("Plant Health Keybind", KeyCode.KeypadDivide, "Keybind for Plant Health");
+			var category = MelonPreferences.CreateCategory("Plant Health", " ");
+			keybind = category.CreateEntry("Keybind", KeyCode.KeypadDivide, "Keybind for Plant Health");
 
 			MelonLogger.Msg("Plant Health is loaded!");
 		}

@@ -25,8 +25,8 @@ namespace Zombie_Health
                 alignment = TextAnchor.MiddleCenter
             };
 
-            var category = MelonPreferences.CreateCategory("Hotkeys", " ");
-            keybind = category.CreateEntry("Zombie Health Keybind", KeyCode.KeypadMultiply, "Keybind for Zombie Health");
+            var category = MelonPreferences.CreateCategory("Zombie Health", " ");
+            keybind = category.CreateEntry("Keybind", KeyCode.KeypadMultiply, "Keybind for Zombie Health");
 
             MelonLogger.Msg("Zombie Health is loaded!");
         }
