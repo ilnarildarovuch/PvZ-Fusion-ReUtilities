@@ -13,6 +13,7 @@ namespace Zombie_Health
         private Camera mainCamera;
         private static readonly List<ValueTuple<Zombie, Transform>> zombie_Shadow = new List<ValueTuple<Zombie, Transform>>();
         private static bool opendrawbl = false;
+        public MelonPreferences_Entry<KeyCode> keybind;
 
         public override void OnInitializeMelon()
         {
@@ -23,6 +24,9 @@ namespace Zombie_Health
                 normal = { textColor = Color.red },
                 alignment = TextAnchor.MiddleCenter
             };
+
+            var category = MelonPreferences.CreateCategory("Hotkeys", " ");
+            keybind = category.CreateEntry("Zombie Health Keybind", KeyCode.KeypadMultiply, "Keybind for Zombie Health");
 
             MelonLogger.Msg("Zombie Health is loaded!");
         }
@@ -37,7 +41,7 @@ namespace Zombie_Health
 
         public override void OnUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+            if (Input.GetKeyDown(keybind.Value))
             {
                 opendrawbl = !opendrawbl;
                 MelonLogger.Msg($"Drawing toggled to {opendrawbl}");

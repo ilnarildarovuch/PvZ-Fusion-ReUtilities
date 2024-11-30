@@ -21,7 +21,7 @@ namespace Better_Game_Speed
 		public override void OnInitializeMelon()
 		{
 			MelonLogger.Msg("Better Game Speed is loaded!");
-			var category = MelonPreferences.CreateCategory("Better Game Speed", "");
+			var category = MelonPreferences.CreateCategory("Hotkeys", " ");
 
             configDecrease = category.CreateEntry("Decrease Speed Hotkey", KeyCode.A, "Decrease game speed");
 			configIncrease = category.CreateEntry("Increase Speed Hotkey", KeyCode.D, "Increase game speed");

@@ -13,6 +13,7 @@ namespace Plant_Health
 		private Camera mainCamera;
 		public static bool opendrawbl = false;
 		public static readonly List<ValueTuple<Plant, Transform>> plant_Shadow = new List<ValueTuple<Plant, Transform>>();
+		public MelonPreferences_Entry<KeyCode> keybind;
 
 		public override void OnInitializeMelon()
 		{
@@ -23,6 +24,9 @@ namespace Plant_Health
 				normal = { textColor = Color.green },
 				alignment = TextAnchor.MiddleCenter
 			};
+
+			var category = MelonPreferences.CreateCategory("Hotkeys", " ");
+            keybind = category.CreateEntry("Plant Health Keybind", KeyCode.KeypadDivide, "Keybind for Plant Health");
 
 			MelonLogger.Msg("Plant Health is loaded!");
 		}
@@ -37,7 +41,7 @@ namespace Plant_Health
 
 		public override void OnUpdate()
 		{
-			if (Input.GetKeyDown(KeyCode.KeypadDivide))
+			if (Input.GetKeyDown(keybind.Value))
 			{
 				opendrawbl = !opendrawbl;
 				MelonLogger.Msg($"Drawing toggled to {opendrawbl}");

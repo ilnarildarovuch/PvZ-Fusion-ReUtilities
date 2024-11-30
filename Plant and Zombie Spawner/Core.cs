@@ -10,17 +10,25 @@ namespace Plant_and_Zombie_Spawner
     public class Core : MelonMod
     {
         private static MelonPreferences_Entry<bool> configMindControl;
+        public MelonPreferences_Entry<KeyCode> plantKeybind;
+        public MelonPreferences_Entry<KeyCode> zombieKeybind;
+
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Plant and Zombie Spawner is loaded!");
-            configMindControl = MelonPreferences.CreateEntry("Plant and Zombie Spawner", "Mind Controlled", true);
+
+            var category = MelonPreferences.CreateCategory("Plant and Zombie Spawner");
+            configMindControl = category.CreateEntry("Mind Controlled", true);
+            plantKeybind = category.CreateEntry("Plant Keybind", KeyCode.C);
+            zombieKeybind = category.CreateEntry("Zombie Keybind", KeyCode.V);
+
         }
 
         public override void OnUpdate()
         {
             if (Board.Instance != null)
             {
-                if (Input.GetKeyDown(KeyCode.C))
+                if (Input.GetKeyDown(plantKeybind.Value))
                 {
                     if (Patch.GetSeedType.SeedType != -1)
                     {
@@ -31,7 +39,7 @@ namespace Plant_and_Zombie_Spawner
                 {
                     configMindControl.Value = !configMindControl.Value;
                 }
-                if (Input.GetKeyDown(KeyCode.V))
+                if (Input.GetKeyDown(zombieKeybind.Value))
                 {
                     if (Patch.GetZombieType.ZombieType != -1)
                     {
