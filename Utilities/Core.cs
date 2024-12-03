@@ -14,6 +14,8 @@ namespace Utilities
         private static DateTime dtStart;
         private static DateTime? dtStartToast;
         private static string toast_txt;
+        public static bool isSeedRain = false;
+        public static bool isScaredyDream = false;
 
         public override void OnEarlyInitializeMelon() => dtStart = DateTime.Now;
 

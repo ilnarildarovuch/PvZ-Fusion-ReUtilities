@@ -2,6 +2,7 @@
 using Il2Cpp;
 using System.Text;
 using UnityEngine;
+using static Il2Cpp.Board;
 
 namespace Utilities
 {
@@ -78,12 +79,22 @@ namespace Utilities
 					__instance.newZombieWaveCountDown = 15f;
 				}
 
-				Board.BoardTag boardTag = Board.Instance.boardTag;
-				boardTag.isScaredyDream = (Utility.GetActive(Utility.UtilityType.ScaredyDream));
-				boardTag.isSeedRain = (Utility.GetActive(Utility.UtilityType.SeedRain));
-				boardTag.isNight = (Utility.GetActive(Utility.UtilityType.SeedRain));
-				Board.Instance.boardTag = boardTag;
+				if (Input.GetKeyDown(KeyCode.Quote))
+				{
+					Core.isScaredyDream = !Core.isScaredyDream;
+					Board.BoardTag boardTag = Board.Instance.boardTag;
+					boardTag.isScaredyDream = Core.isScaredyDream;
+					Board.Instance.boardTag = boardTag;
+				}
 				
+				if (Input.GetKeyDown(KeyCode.Backslash))
+                {
+					Core.isSeedRain = !Core.isSeedRain;
+					Board.BoardTag boardTag = Board.Instance.boardTag;
+					boardTag.isSeedRain = Core.isSeedRain;
+					boardTag.isNight = Core.isSeedRain;
+					Board.Instance.boardTag = boardTag;
+				}
 			}
 		}
 
