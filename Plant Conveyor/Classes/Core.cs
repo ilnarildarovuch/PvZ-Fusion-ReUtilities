@@ -76,7 +76,7 @@ namespace PlantConveyor
 		}
 		private void CheckForCDReset()
         {
-			if (InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
+			if (Input.GetKey(KeyCode.DownArrow) && InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
 			{
 				InGameUIMgr.Instance.cardOnBank
 					.Where(gameObject => gameObject)

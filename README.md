@@ -10,11 +10,8 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 
 ### Quality of Life
 - Better Game Speed
-- Better Time Stop
 - Better Pot Fusion
 - Better Pumpkin Fusion
-- Plant Health
-- Zombie Health
 
 ### Sandbox
 - Plants and Zombies Spawner
@@ -34,7 +31,7 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 	* Stop Game Overs
 	* Developer Mode
 - Quick Features
-	* Generate Fertilizers, Buckets, etc.
+	* Generate Buckets, etc.
 	* Charm All and Kill All Zombies
 	* Kill All Plants
 	* Generate a Magnetar Meteorite
@@ -45,4 +42,13 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 
 ## Changelog
 
-- New Utilities Features
+- Better Pumpkin Fusion
+	* Added Blast Pumpkin Support
+- Plant Conveyor
+-	* Changed Hotkeys to the Left/Right Arrows
+	* Refactored code to make it faster
+	* by @Climeron
+- Plant/Zombie Health
+	* Deprecated
+- Better Time Stop
+	* Deprecated

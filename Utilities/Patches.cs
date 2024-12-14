@@ -1,8 +1,7 @@
 ﻿using HarmonyLib;
 using Il2Cpp;
-using System.Text;
+using MelonLoader;
 using UnityEngine;
-using static Il2Cpp.Board;
 
 namespace Utilities
 {
@@ -266,7 +265,7 @@ namespace Utilities
 
 				if (Input.GetKeyDown(KeyCode.Keypad1))
 				{
-					Utility.SpawnItem("Items/Fertilize/Ferilize");
+					Utility.SpawnItem("Items/SproutPotPrize");
 				}
 
 				if (Input.GetKeyDown(KeyCode.Keypad2))
@@ -305,7 +304,7 @@ namespace Utilities
 					{
 						if (zombie != null)
 						{
-							zombie.SetMindControl(false);
+							zombie.SetMindControl();
 						}
 					}
 				}

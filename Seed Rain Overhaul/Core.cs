@@ -13,27 +13,32 @@ namespace Seed_Rain_Overhaul
 
         public static string[] plantNames = new string[]
         {
-            "Peashooter", "Sunflower", "Cherry Bomb", "Wall-nut", "Potato Mine", "Chomper", "Puff-shroom", "Fume-shroom", "Hypno-shroom", "Scaredy-shroom",
-			"Ice-shroom", "Doom-shroom", "Lily Pad", "Squash", "Threepeater", "Tangle Kelp", "Jalapeno", "Spikeweed", "Torchwood", "Sea-shroom",
-			"Plantern", "Cactus", "Blover", "Starfruit", "Pumpkin", "Magnet-shroom", "Cabbage-pult", "Flower Pot", "Kernel-pult", "Garlic", "Umbrella Leaf", "Marigold", "Melon-pult", "Swordmaster Starfruit", "Zombie Giftbox", "Giant-nut Spawn", "Cattail Girl",
-			"Barley", "Endoflame", "Giant-nut", "Plant Giftbox", "Empress-shroom", "Gatling Cherrybomber", "Squashed Infernowood", "Cherrizilla", "Doominator-shroom", "Twin Solar-nut",
-			"Spikesidian", "Gatling Doom", "Gatling Icicle-shroom", "Magnetar", "Oblivion-shroom", "Laser Pumpkin", "Laser Drones", "Obsidian-nut", "Wither-pult", "Cob-livion Cannon", "Midas Umbrella", "Pea Sunflower", "Cherryshooter",
-			"Solar Bomb", "Cherry-nut", "Pea-nut", "Explod-o-shooter", "Solar-nut", "Pea-mine", "Cherrypeater", "Solar Mine", "Mine-nut", "Chomp-shooter",
-			"Chomp-nut", "Chewzilla", "Solar Chomper", "Chomp-mine", "Cherry Chomper", "Gatling Cherry", "Pea-shroom", "Repeat-shroom", "Buckshooter", "Nut-shroom",
+            "Peashooter", "Sunflower", "Cherry_Bomb", "Wall-nut", "Potato_Mine", "Chomper", "Puff-shroom", "Fume-shroom", "Hypno-shroom", "Scaredy-shroom",
+			"Ice-shroom", "Doom-shroom", "Lily_Pad", "Squash", "Threepeater", "Tangle_Kelp", "Jalapeno", "Spikeweed", "Torchwood", "Sea-shroom",
+			"Plantern", "Cactus", "Blover", "Starfruit", "Pumpkin", "Magnet-shroom", "Cabbage-pult", "Flower_Pot", "Kernel-pult", "Garlic", "Umbrella_Leaf", "Marigold", "Melon-pult", 
+			"Imatater", "Neko_Squash", "Swordmaster_Starfruit", "Zombie_Giftbox", "Giant-nut_Spawn", "Cattail_Girl",
+			"Barley", "Endoflame", "Giant-nut", "Plant_Giftbox", "Empress-shroom", "Gatling_Cherrybomber", "Squashed_Infernowood", "Cherrizilla", "Doominator-shroom", "Twin Solar-nut",
+			"Spikesidian", "Gatling_Doom", "Gatling Icicle-shroom", "Magnetar", "Oblivion-shroom", "Laser_Pumpkin", "Laser_Drones", "Obsidian-nut", "Wither-pult", "Cob-livion Cannon", "Midas_Umbrella", 
+			"Enchantress-shroom", "Ashen_Threepeater", "Phoenix_Threepeater", "Gravitron", "Garlizilla", "Blast_Pumpkin", "Aegis_Umbrella", "Charmatron-shroom",
+			"Pea_Sunflower", "Cherryshooter",
+			"Solar_Bomb", "Cherry-nut", "Pea-nut", "Explod-o-shooter", "Solar-nut", "Pea-mine", "Cherrypeater", "Solar_Mine", "Mine-nut", "Chomp-shooter",
+			"Chomp-nut", "Chewzilla", "Solar_Chomper", "Chomp-mine", "Cherry_Chomper", "Gatling_Cherry", "Pea-shroom", "Repeat-shroom", "Buckshooter", "Nut-shroom",
 			"Mini Hypno-shroom", "Perfume-shroom", "Trippy-shroom", "Gutsy-shroom", "Charm-shroom", "Tall-nut", "Rugby-nut", "Buck-nut", "Repeater", "Sun-shroom",
-			"Gatling Pea", "Twin Sunflower", "Snow Pea", "Icicle-shroom", "Mini Ice-shroom", "Frost-shroom", "Shivery-shroom", "Frost-nut", "Cryodoom-shroom", "Frostveil-shroom",
-			"Frenzy-shroom", "Soot-shroom", "Mini Doom-shroom", "Curse-shroom", "Doomberg-shroom", "Squash-spreader", "Spicy Kelp", "Mangle Kelp", "Kelp-spreader", "Infernowood",
-			"Scorchwood", "Spicy Squash", "Torchthree", "Torch-kelp", "Golden Squash", "Scorched Threepeater", "Squashed Torchwood", "Spikerock", "Torchweed", "Scorchweed",
-			"Squashweed", "Weed-spreader", "Gatling Pea-shroom", "Krakerberus", "Cattail", "Frost Cattail", "Flame Cattail", "Gloom-shroom", "Embergloom-shroom", "Cryogloom-shroom",
+			"Gatling_Pea", "Twin_Sunflower", "Snow_Pea", "Icicle-shroom", "Mini Ice-shroom", "Frost-shroom", "Shivery-shroom", "Frost-nut", "Cryodoom-shroom", "Frostveil-shroom",
+			"Frenzy-shroom", "Soot-shroom", "Mini Doom-shroom", "Curse-shroom", "Doomberg-shroom", "Squash-spreader", "Spicy_Kelp", "Mangle_Kelp", "Kelp-spreader", "Infernowood",
+			"Scorchwood", "Spicy_Squash", "Torchthree", "Torch-kelp", "Golden_Squash", "Scorched_Threepeater", "Squashed_Torchwood", "Spikerock", "Torchweed", "Scorchweed",
+			"Squashweed", "Weed-spreader", "Gatling Pea-shroom", "Krakerberus", "Cattail", "Frost_Cattail", "Flame_Cattail", "Gloom-shroom", "Embergloom-shroom", "Cryogloom-shroom",
 			"Scorch-nut", "Spikecicle", "Spikinferno", "Sea Thorn-shroom", "Sea Sun-shroom", "Sea Lamp-shroom", "Lumicactus", "Glowver", "Starglow", "Thornball",
-			"Sea Star", "Starblover", "Starthorn", "Sea Blow-shroom", "Jack O' Lantern", "Thorngourd", "Stargourd", "Split Pea", "Windgourd", "Pumpkin Lure",
-			"Starlure", "Starjoker", "Starpick", "Starsteel", "Iron Pumpkin", "Joker Pumpkin", "Miner Pumpkin", "Magled-shroom", "Sea Magne-shroom", "Magblover",
-			"Magnethorn", "Stardrop", "Snow Repeater", "Gatling Snow", "Split Snow", "Split Cherry", "Sniper Pea", "Bloverthorn Pumpkin", 
-			"Solar-pult", "Cabbage Pot", "Taco-pult", "Kernel-pot", "Umbrella Husk", "Winter Melon", "Clove-pult", "Garbage-pult", 
-			"Garlic-pult", "Cob Cannon", "Corn-pult", "Pyro Cannon", "Cryo Cannon", "Stuffed Melon", "Melon Pot", "Salad-pult", 
-			"Umbrella Clove", "Umbrella Kale", "Mecha-nut", "Garlic Pot", "Umbrella Rind", "Melon Cannon", "Umbrella Pot", 
-			"Silver Cabbage", "Golden Cabbage", "Silve Pot", "Golden Pot", "Silver Kernel", "Golden Kernel", "Twin Marigold",
-			"Silver Melon", "Golden Melon", "Silver Umbrella", "Golden Umbrella", "Silver Garlic", "Golden Garlic", "Hypno-nut", "Alchemist Umbrella"
+			"Sea_Star", "Starblover", "Starthorn", "Sea_Blow-shroom", "Jack O' Lantern", "Thorngourd", "Stargourd", "Split_Pea", "Windgourd", "Pumpkin_Lure",
+			"Starlure", "Starjoker", "Starpick", "Starsteel", "Iron_Pumpkin", "Joker_Pumpkin", "Miner_Pumpkin", "Magled-shroom", "Sea_Magne-shroom", "Magblover",
+			"Magnethorn", "Stardrop", "Snow_Repeater", "Gatling_Snow", "Split_Snow", "Split_Cherry", "Sniper_Pea", "Bloverthorn_Pumpkin", 
+			"Solar-pult", "Cabbage_Pot", "Taco-pult", "Kernel-pot", "Umbrella_Husk", "Winter_Melon", "Clove-pult", "Garbage-pult", 
+			"Garlic-pult", "Cob_Cannon", "Corn-pult", "Pyro_Cannon", "Cryo_Cannon", "Stuffed_Melon", "Melon_Pot", "Salad-pult", 
+			"Umbrella_Clove", "Umbrella_Kale", "Mecha-nut", "Garlic_Pot", "Umbrella_Rind", "Melon_Cannon", "Umbrella_Pot", 
+			"Silver_Cabbage", "Golden_Cabbage", "Silver_Pot", "Golden_Pot", "Silver_Kernel", "Golden_Kernel", "Twin_Marigold",
+			"Silver_Melon", "Golden_Melon", "Silver_Umbrella", "Golden_Umbrella", "Silver_Garlic", "Golden_Garlic", "Hypno-nut", "Alchemist_Umbrella",
+			"Summer_Melon", "Gold_Magnet", "Giga_Mecha-nut", "Buck-shroom", "Split_Pea-shroom", "Solar_Magnet", "Golden_Spikeweed", "Golden_Kelp", "Charm_Magnet", "Lure-shroom",
+			"Rust-shroom", "Rugby-shroom"
         };
 
 		public static int[] plantIndexes = new int[]
@@ -41,10 +46,11 @@ namespace Seed_Rain_Overhaul
 			0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 			11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 			21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-			31, 32, 249, 250, 251,
-			252, 253, 254, 255, 256, 257, 900, 901, 902, 903,
-			904, 905, 906, 907, 908, 909, 910, 911, 912, 913,
-			914, 915, 916,
+			31, 32, 245, 248, 249, 250, 
+			251, 252, 253, 254, 255, 256, 257, 900, 
+			901, 902, 903, 904, 905, 906, 907, 908, 909, 910, 
+			911, 912, 913, 914, 915, 916, 917, 918, 919, 920,
+			921, 922, 923, 924,
 			1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009,
 			1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019,
 			1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029,
@@ -59,7 +65,9 @@ namespace Seed_Rain_Overhaul
 			1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119,
 			1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129,
             1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139,
-            1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148
+            1140, 1141, 1142, 1143, 1144, 1145, 1146, 1147, 1148, 1149,
+            1150, 1151, 1152, 1153, 1154, 1155, 1156, 1157, 1158, 1159,
+            1160, 
 		};
 
 		public MelonPreferences_Entry<bool> configEnable;

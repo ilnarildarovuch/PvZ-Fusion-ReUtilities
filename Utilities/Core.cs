@@ -3,7 +3,7 @@ using MelonLoader;
 using UnityEngine;
 using Il2Cpp;
 
-[assembly: MelonInfo(typeof(Utilities.Core), "Utilities Addon", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Utilities.Core), "Utilities Addon", "1.2.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Utilities

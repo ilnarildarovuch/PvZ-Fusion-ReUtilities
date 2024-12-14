@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Better_Pumpkin_Fusion.Core), "Better Pumpkin Fusion", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Pumpkin_Fusion.Core), "Better Pumpkin Fusion", "1.1.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Pumpkin_Fusion
@@ -58,21 +58,17 @@ namespace Better_Pumpkin_Fusion
             int plantTypeOnMouse = Mouse.Instance.thePlantTypeOnMouse;
 
             if (plant.thePlantType == 24)
-            {
                 return GetMixData(plantTypeOnMouse);
-            }
             else if (plant.thePlantType == 1110 && plantTypeOnMouse == 1102)
-            {
                 return 911;
-            }
             else if (plant.thePlantType == 1088 && plantTypeOnMouse == 22)
-            {
                 return 1110;
-            }
             else if (plant.thePlantType == 1091 && plantTypeOnMouse == 21)
-            {
                 return 1110;
-            }
+            else if(plant.thePlantType == 911 && plantTypeOnMouse == 2)
+                return 922;
+            else if (plant.thePlantType == 922 && plantTypeOnMouse == 21)
+                return 911;
 
             return 0;
         }

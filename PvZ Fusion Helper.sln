@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plant Health", "Plant Health\Plant Health.csproj", "{C8764579-CB19-41E9-8575-390A99ED1438}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[Deprecated] Plant Health", "Plant Health\[Deprecated] Plant Health.csproj", "{C8764579-CB19-41E9-8575-390A99ED1438}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zombie Health", "Zombie Health\Zombie Health.csproj", "{CF38016C-474C-4BF1-8884-5EAC1479D84E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[Deprecated] Zombie Health", "Zombie Health\[Deprecated] Zombie Health.csproj", "{CF38016C-474C-4BF1-8884-5EAC1479D84E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better Time Stop", "Better Time Stop\Better Time Stop.csproj", "{D1E6D00C-8749-4B39-839C-F2F27360B497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[Deprecated] Better Time Stop", "Better Time Stop\[Deprecated] Better Time Stop.csproj", "{D1E6D00C-8749-4B39-839C-F2F27360B497}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better Pumpkin Fusion", "Better Pumpkin Fusion\Better Pumpkin Fusion.csproj", "{4B1BD5C6-59B8-4B01-9202-7276B775C4F0}"
 EndProject
@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better Pot Fusion", "Better Pot Fusion\Better Pot Fusion.csproj", "{569692D0-EA33-4189-987B-48A40FE9E012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{A629DE3D-7271-4CCE-9779-352C24437418}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{A629DE3D-7271-4CCE-9779-352C24437418}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
