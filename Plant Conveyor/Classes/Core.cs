@@ -1,23 +1,18 @@
 ﻿using Il2Cpp;
-using System.Collections.Generic;
 using MelonLoader;
 using UnityEngine;
-using System.Linq;
-using System.Reflection;
 
 [assembly: MelonInfo(typeof(PlantConveyor.Core), PlantConveyor.AssemblyInfo.MODE_NAME, PlantConveyor.AssemblyInfo.VERSION, PlantConveyor.AssemblyInfo.AUTHOR)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
-[assembly: AssemblyVersion(PlantConveyor.AssemblyInfo.VERSION)]
-[assembly: AssemblyFileVersion(PlantConveyor.AssemblyInfo.VERSION)]
 
 namespace PlantConveyor
 {
-	public static class AssemblyInfo
-	{
-		public const string MODE_NAME = nameof(PlantConveyor);
-		public const string VERSION = "1.2.0";
-		public const string AUTHOR = "Dynaslash & Climeron";
-	}
+    public static class AssemblyInfo
+    {
+        public const string MODE_NAME = nameof(PlantConveyor);
+        public const string VERSION = "1.2.0";
+        public const string AUTHOR = "Dynaslash & Climeron";
+    }
 
 	public class Core : MelonMod
     {
@@ -81,7 +76,7 @@ namespace PlantConveyor
 		}
 		private void CheckForCDReset()
         {
-			if (Input.GetKey(KeyCode.DownArrow) && InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
+			if (InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
 			{
 				InGameUIMgr.Instance.cardOnBank
 					.Where(gameObject => gameObject)
