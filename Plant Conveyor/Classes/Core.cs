@@ -23,6 +23,7 @@ namespace PlantConveyor
 		private readonly float _switchTimeout = 0.1f;
 		public float SwitchTimeout => _switchTimeout;
 		public float Countdown { get; private set; }
+		public bool IsSwitching { get; private set; }
 
 		public override void OnInitializeMelon()
 		{
@@ -64,6 +65,8 @@ namespace PlantConveyor
 				sideIndex++;
 			if (Input.GetKey(KeyCode.RightArrow))
 				sideIndex--;
+			if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+				IsSwitching = true;
 			return (SidesEnum)sideIndex;
 		}
 		private void SetPlantCard(GameObject[] cardsArray, int index)
@@ -76,7 +79,7 @@ namespace PlantConveyor
 		}
 		private void CheckForCDReset()
         {
-			if (Input.GetKey(KeyCode.DownArrow) && InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
+			if (IsSwitching && InGameUIMgr.Instance && InGameUIMgr.Instance.cardOnBank != null)
 			{
 				InGameUIMgr.Instance.cardOnBank
 					.Where(gameObject => gameObject)

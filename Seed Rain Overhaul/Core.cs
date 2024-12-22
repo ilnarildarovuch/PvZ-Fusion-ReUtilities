@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Seed_Rain_Overhaul.Core), "Seed Rain Overhaul", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Seed_Rain_Overhaul.Core), "Seed Rain Overhaul", "1.1.2", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Seed_Rain_Overhaul
@@ -17,19 +17,19 @@ namespace Seed_Rain_Overhaul
 			"Ice-shroom", "Doom-shroom", "Lily_Pad", "Squash", "Threepeater", "Tangle_Kelp", "Jalapeno", "Spikeweed", "Torchwood", "Sea-shroom",
 			"Plantern", "Cactus", "Blover", "Starfruit", "Pumpkin", "Magnet-shroom", "Cabbage-pult", "Flower_Pot", "Kernel-pult", "Garlic", "Umbrella_Leaf", "Marigold", "Melon-pult", 
 			"Imatater", "Neko_Squash", "Swordmaster_Starfruit", "Zombie_Giftbox", "Giant-nut_Spawn", "Cattail_Girl",
-			"Barley", "Endoflame", "Giant-nut", "Plant_Giftbox", "Empress-shroom", "Gatling_Cherrybomber", "Squashed_Infernowood", "Cherrizilla", "Doominator-shroom", "Twin Solar-nut",
-			"Spikesidian", "Gatling_Doom", "Gatling Icicle-shroom", "Magnetar", "Oblivion-shroom", "Laser_Pumpkin", "Laser_Drones", "Obsidian-nut", "Wither-pult", "Cob-livion Cannon", "Midas_Umbrella", 
+			"Barley", "Endoflame", "Giant-nut", "Plant_Giftbox", "Empress-shroom", "Gatling_Cherrybomber", "Squashed_Infernowood", "Cherrizilla", "Doominator-shroom", "Twin_Solar-nut",
+			"Spikesidian", "Gatling_Doom", "Gatling_Icicle-shroom", "Magnetar", "Oblivion-shroom", "Laser_Pumpkin", "Laser_Drones", "Obsidian-nut", "Wither-pult", "Cob-livion_Cannon", "Midas_Umbrella", 
 			"Enchantress-shroom", "Ashen_Threepeater", "Phoenix_Threepeater", "Gravitron", "Garlizilla", "Blast_Pumpkin", "Aegis_Umbrella", "Charmatron-shroom",
 			"Pea_Sunflower", "Cherryshooter",
 			"Solar_Bomb", "Cherry-nut", "Pea-nut", "Explod-o-shooter", "Solar-nut", "Pea-mine", "Cherrypeater", "Solar_Mine", "Mine-nut", "Chomp-shooter",
 			"Chomp-nut", "Chewzilla", "Solar_Chomper", "Chomp-mine", "Cherry_Chomper", "Gatling_Cherry", "Pea-shroom", "Repeat-shroom", "Buckshooter", "Nut-shroom",
-			"Mini Hypno-shroom", "Perfume-shroom", "Trippy-shroom", "Gutsy-shroom", "Charm-shroom", "Tall-nut", "Rugby-nut", "Buck-nut", "Repeater", "Sun-shroom",
-			"Gatling_Pea", "Twin_Sunflower", "Snow_Pea", "Icicle-shroom", "Mini Ice-shroom", "Frost-shroom", "Shivery-shroom", "Frost-nut", "Cryodoom-shroom", "Frostveil-shroom",
-			"Frenzy-shroom", "Soot-shroom", "Mini Doom-shroom", "Curse-shroom", "Doomberg-shroom", "Squash-spreader", "Spicy_Kelp", "Mangle_Kelp", "Kelp-spreader", "Infernowood",
+			"Mini_Hypno-shroom", "Perfume-shroom", "Trippy-shroom", "Gutsy-shroom", "Charm-shroom", "Tall-nut", "Rugby-nut", "Buck-nut", "Repeater", "Sun-shroom",
+			"Gatling_Pea", "Twin_Sunflower", "Snow_Pea", "Icicle-shroom", "Mini_Ice-shroom", "Frost-shroom", "Shivery-shroom", "Frost-nut", "Cryodoom-shroom", "Frostveil-shroom",
+			"Frenzy-shroom", "Soot-shroom", "Mini_Doom-shroom", "Curse-shroom", "Doomberg-shroom", "Squash-spreader", "Spicy_Kelp", "Mangle_Kelp", "Kelp-spreader", "Infernowood",
 			"Scorchwood", "Spicy_Squash", "Torchthree", "Torch-kelp", "Golden_Squash", "Scorched_Threepeater", "Squashed_Torchwood", "Spikerock", "Torchweed", "Scorchweed",
-			"Squashweed", "Weed-spreader", "Gatling Pea-shroom", "Krakerberus", "Cattail", "Frost_Cattail", "Flame_Cattail", "Gloom-shroom", "Embergloom-shroom", "Cryogloom-shroom",
-			"Scorch-nut", "Spikecicle", "Spikinferno", "Sea Thorn-shroom", "Sea Sun-shroom", "Sea Lamp-shroom", "Lumicactus", "Glowver", "Starglow", "Thornball",
-			"Sea_Star", "Starblover", "Starthorn", "Sea_Blow-shroom", "Jack O' Lantern", "Thorngourd", "Stargourd", "Split_Pea", "Windgourd", "Pumpkin_Lure",
+			"Squashweed", "Weed-spreader", "Gatling_Pea-shroom", "Krakerberus", "Cattail", "Frost_Cattail", "Flame_Cattail", "Gloom-shroom", "Embergloom-shroom", "Cryogloom-shroom",
+			"Scorch-nut", "Spikecicle", "Spikinferno", "Sea_Thorn-shroom", "Sea_Sun-shroom", "Sea_Lamp-shroom", "Lumicactus", "Glowver", "Starglow", "Thornball",
+			"Sea_Star", "Starblover", "Starthorn", "Sea_Blow-shroom", "Jack_O_Lantern", "Thorngourd", "Stargourd", "Split_Pea", "Windgourd", "Pumpkin_Lure",
 			"Starlure", "Starjoker", "Starpick", "Starsteel", "Iron_Pumpkin", "Joker_Pumpkin", "Miner_Pumpkin", "Magled-shroom", "Sea_Magne-shroom", "Magblover",
 			"Magnethorn", "Stardrop", "Snow_Repeater", "Gatling_Snow", "Split_Snow", "Split_Cherry", "Sniper_Pea", "Bloverthorn_Pumpkin", 
 			"Solar-pult", "Cabbage_Pot", "Taco-pult", "Kernel-pot", "Umbrella_Husk", "Winter_Melon", "Clove-pult", "Garbage-pult", 
@@ -84,8 +84,8 @@ namespace Seed_Rain_Overhaul
 
 		private void LoadConfig()
 		{
-			var mainCategory = MelonPreferences.CreateCategory("Seed Rain Overhaul");
-			var enabledPlants = MelonPreferences.CreateCategory("Seed Rain Overhaul - Enabled Plants");
+			var mainCategory = MelonPreferences.CreateCategory("Seed Rain Overhaul", " ");
+			var enabledPlants = MelonPreferences.CreateCategory("Seed Rain Overhaul - Custom Enabled Plants");
 
 			configEnable = mainCategory.CreateEntry("Enable", true);
 			configMode = mainCategory.CreateEntry("Mode", 1, "0 - Default, 1 - Custom seed rain drop cards, 2 - Default drop cards but add Odyssey plants, 3 - Only Odyssey plants, 4 - All plants, 5 - All plants but remove aquatic plants.");

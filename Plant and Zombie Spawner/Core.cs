@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Plant_and_Zombie_Spawner.Core), "Plant and Zombie Spawner", "1.1.2", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Plant_and_Zombie_Spawner.Core), "Plant and Zombie Spawner", "1.2.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Plant_and_Zombie_Spawner
@@ -17,10 +17,10 @@ namespace Plant_and_Zombie_Spawner
 		{
 			MelonLogger.Msg("Plant and Zombie Spawner is loaded!");
 
-			var category = MelonPreferences.CreateCategory("Plant and Zombie Spawner");
-			configMindControl = category.CreateEntry("Mind Controlled", true);
-			plantKeybind = category.CreateEntry("Plant Keybind", KeyCode.C);
-			zombieKeybind = category.CreateEntry("Zombie Keybind", KeyCode.V);
+			var category = MelonPreferences.CreateCategory("Plant_and_Zombie_Spawner");
+			configMindControl = category.CreateEntry("MindControlled", true);
+			plantKeybind = category.CreateEntry("PlantKeybind", KeyCode.C);
+			zombieKeybind = category.CreateEntry("ZombieKeybind", KeyCode.V);
 
 		}
 

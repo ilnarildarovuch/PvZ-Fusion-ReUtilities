@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(Odyssey_Buffs.Core), "Odyssey Buffs", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Odyssey_Buffs.Core), "Odyssey Buffs", "1.1.1", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Odyssey_Buffs
@@ -20,34 +20,38 @@ namespace Odyssey_Buffs
 
 		public static string[] advancedUpgradesKeys = new string[]
 		{
-			"Empress shroom Summon Interval 10 Seconds", "Empress shroom Can now summon Ultimate Zombies", 
-			"Gatling Doom No more rest between every attack", "Gatling Doom Can now fire bullets of doom between every attack", 
-			"Twin Solar nut Can now restore to full health instead of 1500 each time", "Twin Solar nut Toughness reduces by 10 for each hit instead of 15", 
-			"Spikesidian Damage multiplied by 5", "Spikesidian Gains 95% DMG Reduction", 
-			"Each Sun now gives double the value", "Glove's cooldown is halved",
-			"Plants' recharge are halved", "Mallet's cooldown is reduced to 1 10", 
-			"At the beginning of each round a charmed Michael Zomboni is generated in each row", 
-			"Gain 2000 Sun then double your total amount of Sun after", "Ignited peas will now add the Enflamed debuff to zombies", 
-			"Enflamed Debuff damage increased to 150%", "Glove no longer has a cooldown", 
-			"Gatling Icicle shroom Increased icicles' penetration by 10 times", "Gatling Icicle shroom Increased damage to Frozen zombies by 10 times",
-			"Stardrop Meteor Interval is halved", "The Lumos Level for the entire field is set to max", 
-			"Laser Pumpkin Wingmen Amount 3", "Laser Pumpkin Can now carry out ground attacks",
-			"Midas Umbrella Activates ultimate automatically if zombies are near 7 5 seconds cooldown", 
-			"Midas Umbrella Now bounce bullets with other Midas Umbrella"
+			"Empress_Buff1", "Empress_Buff2", 
+			"GatlingDoom_Buff1", "GatlingDoom_Buff2", 
+			"TwinSolar_Buff1", "TwinSolar_Buff2", 
+			"Spikesidian_Buff1", "Spikesidian_Buff2",
+			"DoubleSun", "GloveHalfCooldown",
+			"PlantDMGIncrease", "ZombiesReceiveDMGIncrease",
+			"ZombieInstanceDamage", "SelectPlantLoadout", 
+			"RerollPlus2", "EnflamedDMGMultiplier", 
+			"GloveNoCooldown",
+			"GatlingIcicle_Buff1", "GatlingIcicle_Buff2",
+			"MeteorHalfCooldown", "LumosMaxLevel", 
+			"LaserPumpkin_Buff1", "LaserPumpkin_Buff2",
+			"MidasUmbrella_Buff1", "MidasUmbrella_Buff2",
+			"Gain2000SunAndDoubled", "Mallet6SecCooldown",
+			"PlantHalfRecharge",
+			"Zombie1800DMGInstance", "Fission",
+			"CharmedZombiesIncreasedDMG", "Phoenix_INFPierce",
+			"ImitaterReducedRecharge", "IdenticalPlantDMGIncrease",
 		};
 
 		public static string[] ultimateUpgradesKeys = new string[]
 		{
-			"Cherrizilla Can now kill zombies with less than 33 percent health", "Cherrizilla Immunity to all explosions", 
-			"Gatling Cherrybomber Bombs now deal 900 DMG", "Gatling Cherrybomber Attack Interval 1 Second", 
-			"Doominator shroom Attack Damage 300", "Doominator shroom Increased Freezing speed by 3 times",
-			"Squashed Infernowood Bullets required to spawn a Spicy Squash 10", "Squashed Infernowood Now spawns two Spicy Squash at a time", 
-			"Magnetar Attack Interval 0 5 Seconds","Magnetar Damage Limiter 120 is removed", 
-			"Oblivion shroom Damage on Death 1 000 000", "Oblivion shroom Now absorbs explosion damage and releases it back to the enemies",
-			"Wither pult Spread fire is now a 100 percent chance", "Wither pult Melon Pot's traits are now inherited",
-			"Cob blivion Cannon Damage multiplied by 3", "Cob blivion Cannon Reload Time reduced to a third of the original",
-			"Obsidian nut Recovers 10 000 HP when affected by Ice Mushrooms and recover full HP when affected by Jalapeno",
-			"Obsidian nut Can now mitigate the damage directed to the two plants on its left and right"
+			"Cherrizilla_Buff1", "Cherrizilla_Buff2",
+			"GatlingCherrybomber_Buff1", "GatlingCherrybomber_Buff2",
+			"Doominator_Buff1", "Doominator_Buff2",
+			"SquashedInfernowood_Buff1", "SquashedInfernowood_Buff2",
+			"Magnetar_Buff1","Magnetar_Buff2", 
+			"Oblivion_Buff1", "Oblivion_Buff2",
+			"Wither_Buff1", "Wither_Buff2",
+			"CoblivionCannon_Buff1", "CoblivionCannon_Buff2",
+			"Obsidian_Buff1", "Obsidian_Buff2",
+			"Charmatron_Buff1", "Charmatron_Buff2",
 		};
 
 

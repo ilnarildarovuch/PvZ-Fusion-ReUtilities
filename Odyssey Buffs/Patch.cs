@@ -77,6 +77,7 @@ namespace Odyssey_Buffs
 					travelMgr.advancedUpgrades[i] = Core.instance.boolArrayadvancedConfig[i].Value;
 					MelonLogger.Msg($"Advanced Upgrade {Core.instance.boolArrayadvancedConfig[i].DisplayName} = {Core.instance.boolArrayadvancedConfig[i].Value} applied.");
 				}
+				MelonLogger.Msg("Advanced upgrades loaded!");
 
 				MelonLogger.Msg("");
 				MelonLogger.Msg("Loading ultimate upgrades...");
@@ -85,6 +86,7 @@ namespace Odyssey_Buffs
 					travelMgr.ultimateUpgrades[i] = Core.instance.boolArrayultimateConfig[i].Value;
 					MelonLogger.Msg($"Ultimate Upgrade {Core.instance.boolArrayultimateConfig[i].DisplayName} = {Core.instance.boolArrayultimateConfig[i].Value} applied.");
 				}
+				MelonLogger.Msg("Ultimate upgrades loaded!");
 			}
 		}
 	}

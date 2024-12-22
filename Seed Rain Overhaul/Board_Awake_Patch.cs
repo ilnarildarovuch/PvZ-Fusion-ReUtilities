@@ -19,7 +19,7 @@ namespace Seed_Rain_Overhaul
 		public static void FixRainCardPrefix(Board __instance)
 		{
 			Core.instance.ReloadConfig();
-			MelonLogger.Msg("Seed Rain Overhaul is loaded!");
+			// MelonLogger.Msg("Seed Rain Overhaul is loaded!");
 
 			if (Core.instance.configEnable.Value)
 			{
@@ -64,7 +64,7 @@ namespace Seed_Rain_Overhaul
 
 		private static void AddTravelPlant(Board __instance)
 		{
-			for (int i = 900 ; i <= 916 ; i++)
+			for (int i = 900 ; i <= 924 ; i++)
 			{
 				__instance.seedPool.Add(i);
 			}

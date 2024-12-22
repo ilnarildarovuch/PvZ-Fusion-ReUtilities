@@ -5,17 +5,17 @@ namespace Plant_and_Zombie_Spawner
 {
     internal class Patch
     {
-        [HarmonyPatch(typeof(AlmanacPlantCtrl))]
+        [HarmonyPatch(typeof(AlmanacCard))]
         public class GetSeedType   
         {
 
             public static int SeedType = -1;
 
             [HarmonyPostfix]
-            [HarmonyPatch("GetSeedType")]
-            public static void SetSeedTypePostfix(AlmanacPlantCtrl __instance)
+            [HarmonyPatch("OnMouseDown")]
+            public static void OnMouseDown(AlmanacCard __instance)
             {
-                GetSeedType.SeedType = __instance.plantSelected;
+                GetSeedType.SeedType = __instance.theSeedType;
             }
         }
 
