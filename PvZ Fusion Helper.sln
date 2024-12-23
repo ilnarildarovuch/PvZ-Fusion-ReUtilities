@@ -30,6 +30,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Better Pot Fusion", "Better
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{A629DE3D-7271-4CCE-9779-352C24437418}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "No Craters", "No Craters\No Craters.csproj", "{835A80A8-9ED3-4CFB-9935-23F43DF526EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi Giftbox", "Multi Giftbox\Multi Giftbox.csproj", "{1C5F9D05-0C0B-4C52-9BE1-6074CC491907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +84,14 @@ Global
 		{A629DE3D-7271-4CCE-9779-352C24437418}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A629DE3D-7271-4CCE-9779-352C24437418}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A629DE3D-7271-4CCE-9779-352C24437418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835A80A8-9ED3-4CFB-9935-23F43DF526EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835A80A8-9ED3-4CFB-9935-23F43DF526EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835A80A8-9ED3-4CFB-9935-23F43DF526EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835A80A8-9ED3-4CFB-9935-23F43DF526EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5F9D05-0C0B-4C52-9BE1-6074CC491907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5F9D05-0C0B-4C52-9BE1-6074CC491907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5F9D05-0C0B-4C52-9BE1-6074CC491907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5F9D05-0C0B-4C52-9BE1-6074CC491907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

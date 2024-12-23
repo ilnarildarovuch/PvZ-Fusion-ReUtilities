@@ -20,7 +20,6 @@ namespace Utilities
 					__instance.CD = __instance.fullCD;
 					__instance.isAvailable = true;
 				}
-				
 			}
 		}
 
@@ -62,16 +61,12 @@ namespace Utilities
 			private static void Update(Board __instance)
 			{
 				if (Utility.GetActive(Utility.UtilityType.UnliSun))
-				{
 					__instance.theSun = 99999;
-				}
 
 				if (Utility.GetActive(Utility.UtilityType.UnliCoins))
-				{
 					__instance.theMoney = 2147400000;
-				}
 
-				__instance.freeCD = Utility.GetActive(Utility.UtilityType.DeveloperMode);
+				__instance.freeCD = Utility.GetActive(Utility.UtilityType.NoCooldown) || Utility.GetActive(Utility.UtilityType.DeveloperMode);
 
 				if (Utility.GetActive(Utility.UtilityType.StopZombieSpawn))
 				{
@@ -142,6 +137,7 @@ namespace Utilities
                 }
 			}
 
+			#if TESTING
 			[HarmonyPrefix]
 			[HarmonyPatch("Lim")]
 			private static bool Lim(ref bool __result)
@@ -157,6 +153,7 @@ namespace Utilities
 				__result = false;
 				return false;
 			}
+			#endif
 		}
 
 		[HarmonyPatch(typeof(InGameUIMgr))]
@@ -265,7 +262,7 @@ namespace Utilities
 
 				if (Input.GetKeyDown(KeyCode.Keypad1))
 				{
-					Utility.SpawnItem("Items/SproutPotPrize");
+					Utility.SpawnItem("Items/Sprout");
 				}
 
 				if (Input.GetKeyDown(KeyCode.Keypad2))

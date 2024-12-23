@@ -129,7 +129,7 @@ namespace Utilities
 			{UtilityType.SeedRain, new UtilityFeature("Seed Rain", UtilityType.SeedRain, KeyCode.Backslash)},
 
 			{UtilityType.GenerateTrophy, new UtilityFeature("Generate Trophy", UtilityType.GenerateTrophy, KeyCode.Keypad0)},
-			{UtilityType.GenerateFertilizer, new UtilityFeature("Generate Garden Sprout", UtilityType.GenerateFertilizer, KeyCode.Keypad1)},
+			{UtilityType.GenerateFertilizer, new UtilityFeature("Generate Garden Sprout (Not Working)", UtilityType.GenerateFertilizer, KeyCode.Keypad1)},
 			{UtilityType.GenerateBucket, new UtilityFeature("Generate Bucket", UtilityType.GenerateBucket, KeyCode.Keypad2)},
 			{UtilityType.GenerateHelmet, new UtilityFeature("Generate Helmet", UtilityType.GenerateHelmet, KeyCode.Keypad3)},
 			{UtilityType.GenerateJack, new UtilityFeature("Generate Jack-in-the-Box", UtilityType.GenerateJack, KeyCode.Keypad4)},

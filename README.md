@@ -48,6 +48,10 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 -	* Changed Hotkeys to the Left/Right Arrows
 	* Refactored code to make it faster
 	* by @Climeron
+- Seed Rain Overhaul
+	* Updated to include new plants on latest version
+- Odyssey Plants and Buffs: Everywhere
+	* Updated to include new buffs on latest version
 - Plant/Zombie Health
 	* Deprecated
 - Better Time Stop
