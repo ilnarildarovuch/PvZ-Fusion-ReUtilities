@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Better_Pot_Fusion.Core), "Better Pot Fusion", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Pot_Fusion.Core), "Better Pot Fusion", "216.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Pot_Fusion

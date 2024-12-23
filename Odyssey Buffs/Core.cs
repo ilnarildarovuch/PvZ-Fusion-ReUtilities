@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(Odyssey_Buffs.Core), "Odyssey Buffs", "1.1.1", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Odyssey_Buffs.Core), "Odyssey Buffs", "216.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Odyssey_Buffs

@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Seed_Rain_Overhaul.Core), "Seed Rain Overhaul", "1.1.2", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Seed_Rain_Overhaul.Core), "Seed Rain Overhaul", "216.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Seed_Rain_Overhaul

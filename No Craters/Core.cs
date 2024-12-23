@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(No_Craters.Core), "No Craters", "1.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(No_Craters.Core), "No Craters", "216.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace No_Craters

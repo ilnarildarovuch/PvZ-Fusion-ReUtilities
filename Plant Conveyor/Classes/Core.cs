@@ -10,7 +10,7 @@ namespace PlantConveyor
     public static class AssemblyInfo
     {
         public const string MODE_NAME = nameof(PlantConveyor);
-        public const string VERSION = "1.2.0";
+        public const string VERSION = "216.0.0";
         public const string AUTHOR = "Dynaslash & Climeron";
     }
 
