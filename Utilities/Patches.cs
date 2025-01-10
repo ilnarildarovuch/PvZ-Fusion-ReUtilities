@@ -262,7 +262,7 @@ namespace Utilities
 
 				if (Input.GetKeyDown(KeyCode.Keypad1))
 				{
-					Utility.SpawnItem("Items/Sprout");
+					Utility.SpawnItem("Items/fertilize/Ferilize");
 				}
 
 				if (Input.GetKeyDown(KeyCode.Keypad2))
@@ -288,6 +288,11 @@ namespace Utilities
 				if (Input.GetKeyDown(KeyCode.Keypad6))
 				{
 					Utility.SpawnItem("Items/Machine");
+				}
+
+				if (Input.GetKeyDown(KeyCode.Alpha5))
+				{
+					Utility.SpawnItem("Items/SuperMachine");
 				}
 
 				if (Input.GetKeyDown(KeyCode.Keypad7))
