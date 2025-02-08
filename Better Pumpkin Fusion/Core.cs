@@ -42,7 +42,7 @@ namespace Better_Pumpkin_Fusion
 
                     if (targetPlantType != 0)
                     {
-                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, targetPlantType, null, Vector2.zero, true, 0f) != null)
+                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, (Il2Cpp.PlantType)targetPlantType, null, Vector2.zero, true, true) != null)
                         {
                             UpdateSunAndCooldowns();
                             plant.Die(0);
@@ -55,19 +55,19 @@ namespace Better_Pumpkin_Fusion
 
         private int GetTargetPlantType(Plant plant)
         {
-            int plantTypeOnMouse = Mouse.Instance.thePlantTypeOnMouse;
+            int plantTypeOnMouse = (int)Mouse.Instance.thePlantTypeOnMouse;
 
-            if (plant.thePlantType == 24)
+            if ((int)plant.thePlantType == 24)
                 return GetMixData(plantTypeOnMouse);
-            else if (plant.thePlantType == 1110 && plantTypeOnMouse == 1102)
+            else if ((int)plant.thePlantType == 1110 && plantTypeOnMouse == 1102)
                 return 911;
-            else if (plant.thePlantType == 1088 && plantTypeOnMouse == 22)
+            else if ((int)plant.thePlantType == 1088 && plantTypeOnMouse == 22)
                 return 1110;
-            else if (plant.thePlantType == 1091 && plantTypeOnMouse == 21)
+            else if ((int)plant.thePlantType == 1091 && plantTypeOnMouse == 21)
                 return 1110;
-            else if(plant.thePlantType == 911 && plantTypeOnMouse == 2)
+            else if ((int)plant.thePlantType == 911 && plantTypeOnMouse == 2)
                 return 922;
-            else if (plant.thePlantType == 922 && plantTypeOnMouse == 21)
+            else if ((int)plant.thePlantType == 922 && plantTypeOnMouse == 21)
                 return 911;
 
             return 0;

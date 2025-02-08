@@ -12,7 +12,7 @@
 		<AssemblyName>Seed_Rain_Overhaul</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<GamePath>D:\Games\[Series] PvZ Mods\(Fangame) Fusion\Chinese 2.1.6</GamePath>
+		<GamePath>D:\PvZ Fusion\Game Files</GamePath>
 	</PropertyGroup>
 
 	<ItemGroup>

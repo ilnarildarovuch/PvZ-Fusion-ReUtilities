@@ -6,7 +6,7 @@ namespace Plant_and_Zombie_Spawner
     internal class Patch
     {
         [HarmonyPatch(typeof(AlmanacCard))]
-        public class GetSeedType   
+        public class GetSeedType
         {
 
             public static int SeedType = -1;
@@ -32,5 +32,10 @@ namespace Plant_and_Zombie_Spawner
                 GetZombieType.ZombieType = (int)__instance.theZombieType;
             }
         }
+
+        //        [HarmonyPatch(typeof(InGameUIMgr))]
+        //        public static int card = -1;
+        //        [HarmonyPostfix]
+        //        [HarmonyPatch("")]
     }
 }
