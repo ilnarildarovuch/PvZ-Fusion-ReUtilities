@@ -12,12 +12,14 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 - Better Game Speed
 - Better Pot Fusion
 - Better Pumpkin Fusion
+- No Craters
 
 ### Sandbox
 - Plants and Zombies Spawner
 - Plant Conveyor
 - Odyssey Plants and Buffs: Everywhere
 - Seed Rain Overhaul
+- Multi Giftbox
 
 ### Utilities Addon
 - Toggleable Features
@@ -42,5 +44,8 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 
 ## Changelog
 
+- Fixed Most Addons (Credits: TuanAnh2901)
 - Better Game Speed
-	* Changed hotkeys
+	* Changed Hotkeys
+- Utilities
+	* Added Generate Sprout

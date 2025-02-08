@@ -32,10 +32,11 @@ namespace Utilities
             GenerateJack, // 4
             GeneratePickaxe, // 5
             GenerateMecha, // 6
-            GenerateSuperMecha, // 5 not the numpad
-            GenerateMeteor, // 7
-            CharmAll, // 8
-            KillAllZombies, // 9
+            GenerateSuperMecha, // 7
+            GenerateMeteor, // 8
+            GenerateSprout, // 9
+            CharmAll, // *
+            KillAllZombies, // -
             KillAllPlants, // +
 
         }
@@ -49,10 +50,11 @@ namespace Utilities
             GenerateJack, // 4
             GeneratePickaxe, // 5
             GenerateMecha, // 6
-            GenerateSuperMecha, // 5 not the numpad
-            GenerateMeteor, // 7
-            CharmAll, // 8
-            KillAllZombies, // 9
+            GenerateSuperMecha, //7
+            GenerateMeteor, // 8
+            GenerateSprout, // 9
+            CharmAll, // *
+            KillAllZombies, // -
             KillAllPlants, // +
         }
 
@@ -76,7 +78,7 @@ namespace Utilities
 
                 IsActive = !IsActive;
 
-                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer || this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet || this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe || this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha || this.UtilityType == UtilityType.GenerateMeteor)
+                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer || this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet || this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe || this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha || this.UtilityType == UtilityType.GenerateMeteor || this.UtilityType == UtilityType.GenerateSprout)
                 {
                     return;
                 }
@@ -99,7 +101,7 @@ namespace Utilities
                     return string.Format("[{0}] {1}", this.KeyCode.ToString(), this.Name);
                 }
 
-                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer || this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet || this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe || this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha || this.UtilityType == UtilityType.GenerateMeteor)
+                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer || this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet || this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe || this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha || this.UtilityType == UtilityType.GenerateMeteor || this.UtilityType == UtilityType.GenerateSprout)
                 {
                     return string.Format("[{0}] {1}", this.KeyCode.ToString(), this.Name);
                 }
@@ -132,16 +134,17 @@ namespace Utilities
             {UtilityType.SeedRain, new UtilityFeature("Seed Rain", UtilityType.SeedRain, KeyCode.Backslash)},
 
             {UtilityType.GenerateTrophy, new UtilityFeature("Generate Trophy", UtilityType.GenerateTrophy, KeyCode.Keypad0)},
-            {UtilityType.GenerateFertilizer, new UtilityFeature("Generate Garden Sprout (Not Working)", UtilityType.GenerateFertilizer, KeyCode.Keypad1)},
+            {UtilityType.GenerateFertilizer, new UtilityFeature("Generate Fertilizer", UtilityType.GenerateFertilizer, KeyCode.Keypad1)},
             {UtilityType.GenerateBucket, new UtilityFeature("Generate Bucket", UtilityType.GenerateBucket, KeyCode.Keypad2)},
             {UtilityType.GenerateHelmet, new UtilityFeature("Generate Helmet", UtilityType.GenerateHelmet, KeyCode.Keypad3)},
             {UtilityType.GenerateJack, new UtilityFeature("Generate Jack-in-the-Box", UtilityType.GenerateJack, KeyCode.Keypad4)},
             {UtilityType.GeneratePickaxe, new UtilityFeature("Generate Pickaxe", UtilityType.GeneratePickaxe, KeyCode.Keypad5)},
             {UtilityType.GenerateMecha, new UtilityFeature("Generate Mecha Fragment", UtilityType.GenerateMecha, KeyCode.Keypad6)},
-            {UtilityType.GenerateSuperMecha, new UtilityFeature("Generate Giga Mecha Fragment", UtilityType.GenerateSuperMecha, KeyCode.Alpha5)},
-            {UtilityType.GenerateMeteor, new UtilityFeature("Generate Meteor", UtilityType.GenerateMeteor, KeyCode.Keypad7)},
-            {UtilityType.CharmAll, new UtilityFeature("Charm All Zombies", UtilityType.CharmAll, KeyCode.Keypad8)},
-            {UtilityType.KillAllZombies, new UtilityFeature("Kill All Zombies", UtilityType.KillAllZombies, KeyCode.Keypad9)},
+            {UtilityType.GenerateSuperMecha, new UtilityFeature("Generate Giga Mecha Fragment", UtilityType.GenerateSuperMecha, KeyCode.Keypad7)},
+            {UtilityType.GenerateMeteor, new UtilityFeature("Generate Meteor", UtilityType.GenerateMeteor, KeyCode.Keypad8)},
+            {UtilityType.GenerateSprout, new UtilityFeature("Generate Sprout", UtilityType.GenerateSprout, KeyCode.Keypad9)},
+            {UtilityType.CharmAll, new UtilityFeature("Charm All Zombies", UtilityType.CharmAll, KeyCode.KeypadMultiply)},
+            {UtilityType.KillAllZombies, new UtilityFeature("Kill All Zombies", UtilityType.KillAllZombies, KeyCode.KeypadMinus)},
             {UtilityType.KillAllPlants, new UtilityFeature("Kill All Plants", UtilityType.KillAllPlants, KeyCode.KeypadPlus)},
 
 

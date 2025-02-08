@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Better_Pumpkin_Fusion.Core), "Better Pumpkin Fusion", "216.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Pumpkin_Fusion.Core), "Better Pumpkin Fusion", "221.0.0", "dynaslash & TuanAnh2901", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Pumpkin_Fusion
@@ -42,7 +42,7 @@ namespace Better_Pumpkin_Fusion
 
                     if (targetPlantType != 0)
                     {
-                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, (Il2Cpp.PlantType)targetPlantType, null, Vector2.zero, true, true) != null)
+                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, (PlantType)targetPlantType, null, Vector2.zero, true, true) != null)
                         {
                             UpdateSunAndCooldowns();
                             plant.Die(0);

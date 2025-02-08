@@ -290,57 +290,23 @@ namespace Utilities
                     Utility.SpawnItem("Items/Machine");
                 }
 
-                // 
-                if (Input.GetKeyDown(KeyCode.Alpha5))
-                {
-                    // IDK BUT I WANT MOREEEEEEEEEEEEEEEE
-                    Utility.SpawnItem("Items/SuperMachine"); // 1
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine"); // 5
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine"); // 10
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine"); 
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine");
-                    Utility.SpawnItem("Items/SuperMachine"); // 15
-                }
-
-                //
-                if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKeyDown(KeyCode.Z))
-                {
-                    // WTF IS THIS?
-                    Utility.SpawnItem("Items/RedIronHead");
-
-                }
-
                 if (Input.GetKeyDown(KeyCode.Keypad7))
                 {
-                    //Board.Instance.CreateUltimateMateorite();
-                    int successfulCreations = 0;
-                    for (int i = 0; i < 5; i++)
-                    {
-                        try
-                        {
-                            Board.Instance.CreateUltimateMateorite();
-                            successfulCreations++;
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.LogError($"Failed to create meteorite {i + 1}: {ex.Message}");
-                        }
-                    }
-
-                    Debug.Log($"Created {successfulCreations} out of 5 Ultimate Meteorites");
+                    Utility.SpawnItem("Items/SuperMachine");
                 }
 
 
                 if (Input.GetKeyDown(KeyCode.Keypad8))
+                {
+                    Board.Instance.CreateUltimateMateorite();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Keypad9))
+                {
+                    Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
+                }
+
+                if (Input.GetKeyDown(KeyCode.KeypadMultiply))
                 {
                     foreach (Zombie zombie in Board.Instance.zombieArray)
                     {
@@ -351,7 +317,7 @@ namespace Utilities
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Keypad9))
+                if (Input.GetKeyDown(KeyCode.KeypadMinus))
                 {
                     foreach (Zombie zombie in Board.Instance.zombieArray)
                     {
@@ -363,61 +329,6 @@ namespace Utilities
                 }
             }
         }
-
-        //		[HarmonyPatch(typeof(SuperMachineNut))]
-        //		public static class SuperMachineNutPatch 
-        //		{
-        //			[HarmonyPrefix]
-        //			[HarmonyPatch("Summon")]
-        //			private static void Summon(SuperMachineNut __instance, ref int theMaxHealth, GameObject gameObject)
-        //			{
-        //				Zombie zombie2 = gameObject.GetComponent<Zombie>();
-        //                __instance.landSubmarine = zombie2;
-        //                Zombie zombie3 = __instance.landSubmarine;
-        //				zombie2.theMaxHealth = 3 * zombie2.theMaxHealth;
-        //				zombie3.theMaxHealth = zombie2.theMaxHealth;
-        //			}
-        //		}
-        //
-
-//        [HarmonyPatch(typeof(Shulkflower))]
-//        public static class Shulkflower_Patch
-//        {
-//            [HarmonyPrefix]
-//            [HarmonyPatch("Awake")]
-//            private static void Awake(Shulkflower __instance)
-//            {
-//                __instance.attributeCountdown = 0.01f;
-//            }
-//
-//            [HarmonyPrefix]
-//            [HarmonyPatch("AttributeEvent")]
-//            private static void AttributeEvent(Shulkflower __instance)
-//            {
-//                __instance.SearchUpdate();
-//                __instance.attributeCountdown = 0.01f;
-//            }
-//        }
-//        [HarmonyPatch(typeof(TwinShulk))]
-//        public static class TwinShulk_Patch
-//        {
-//            [HarmonyPostfix]
-//            [HarmonyPatch("AnimShoot")]
-//            private static bool AnimShoot(TwinShulk __instance, ref Bullet __result)
-//            {
-//                // The original method returns a Bullet, so use __result instead of a parameter
-//                __instance.attributeCountdown = 0.1f;
-//
-//                __result.trackSpeed = 8f;
-//                int num2 = __instance.attackDamage;
-//                num2 += 5 * num2;
-//                __result.theBulletDamage = num2;
-//
-//                return true; // Continue with original method
-//            }
-//        }
-
-
 
         [HarmonyPatch(typeof(GameLose))]
         public static class GameLose_Patch

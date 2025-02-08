@@ -34,7 +34,7 @@ namespace Seed_Rain_Overhaul
 								{
 									if (Core.instance.boolArrayConfig[i].Value)
 									{
-										__instance.seedPool.Add(Core.plantIndexes[i]);
+										__instance.seedPool.Add((PlantType)Core.plantIndexes[i]);
 									}
 								}
 							}
@@ -51,7 +51,7 @@ namespace Seed_Rain_Overhaul
 						__instance.seedPool.Clear();
 						foreach (int num in Core.plantIndexes)
 						{
-							__instance.seedPool.Add(num);
+							__instance.seedPool.Add((PlantType)num);
 						}
 						break;
 					case 5:
@@ -66,7 +66,7 @@ namespace Seed_Rain_Overhaul
 		{
 			for (int i = 900 ; i <= 924 ; i++)
 			{
-				__instance.seedPool.Add(i);
+				__instance.seedPool.Add((PlantType)i);
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace Seed_Rain_Overhaul
 			{
 				if (!hashSet.Contains(num))
 				{
-					__instance.seedPool.Add(num);
+					__instance.seedPool.Add((PlantType)num);
 				}
 			}
 		}

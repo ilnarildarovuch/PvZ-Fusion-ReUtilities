@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Better_Pot_Fusion.Core), "Better Pot Fusion", "216.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Pot_Fusion.Core), "Better Pot Fusion", "221.0.0", "dynaslash & TuanAnh2901", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Pot_Fusion
@@ -44,7 +44,7 @@ namespace Better_Pot_Fusion
 
                     if (targetPlantType != 0)
                     {
-                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, (Il2Cpp.PlantType)targetPlantType, null, Vector2.zero, true, true) != null)
+                        if (CreatePlant.Instance.SetPlant(plant.thePlantColumn, plant.thePlantRow, (PlantType)targetPlantType, null, Vector2.zero, true, true) != null)
                         {
                             UpdateSunAndCooldowns();
                             plant.Die(0);

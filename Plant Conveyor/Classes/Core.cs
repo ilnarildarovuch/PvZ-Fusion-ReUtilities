@@ -11,16 +11,15 @@ namespace PlantConveyor
     {
         public const string MODE_NAME = nameof(PlantConveyor);
         public const string VERSION = "221.0.0";
-        public const string AUTHOR = "Dynaslash & Climeron & VTA";
+        public const string AUTHOR = "Dynaslash & Climeron & TuanAnh2901";
     }
-
     public class Core : MelonMod
     {
         public static Core Instance { get; private set; }
         public int FirstCardIndex { get; private set; }
         public List<int> PlantIDs { get; internal set; }
         public enum SidesEnum { Right = -1, None = 0, Left = 1 }
-        private readonly float _switchTimeout = 0.001f;
+        private readonly float _switchTimeout = 0.1f;
         public float SwitchTimeout => _switchTimeout;
         public float Countdown { get; private set; }
         public bool IsSwitching { get; private set; }
@@ -77,7 +76,7 @@ namespace PlantConveyor
             Mouse.Instance.ChangeCardSprite((PlantType)PlantIDs[plantIndex], component);
             component.theSeedType = PlantIDs[plantIndex];
             component.thePlantType = (PlantType)PlantIDs[plantIndex];
-            component.theSeedCost = -1000;
+            component.theSeedCost = 0;
 
             InGameUIMgr.Instance.cardOnBank[index] = cardsArray[index];
 

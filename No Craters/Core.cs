@@ -2,7 +2,7 @@
 using MelonLoader;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(No_Craters.Core), "No Craters", "216.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(No_Craters.Core), "No Craters", "221.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace No_Craters
@@ -11,7 +11,7 @@ namespace No_Craters
     {
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("Better Pot Fusion is loaded!");
+            MelonLogger.Msg("No Craters is loaded!");
         }
     }
 }

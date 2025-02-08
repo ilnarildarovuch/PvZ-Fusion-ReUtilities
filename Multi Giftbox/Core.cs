@@ -2,7 +2,7 @@
 using HarmonyLib;
 using Il2Cpp;
 
-[assembly: MelonInfo(typeof(Multi_Giftbox.Core), "Multi Giftbox", "216.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Multi_Giftbox.Core), "Multi Giftbox", "221.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Multi_Giftbox

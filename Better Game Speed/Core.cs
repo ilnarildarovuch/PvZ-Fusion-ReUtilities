@@ -3,7 +3,7 @@ using MelonLoader;
 using UnityEngine;
 using Il2Cpp;
 
-[assembly: MelonInfo(typeof(Better_Game_Speed.Core), "Better Game Speed", "22.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Game_Speed.Core), "Better Game Speed", "221.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Game_Speed

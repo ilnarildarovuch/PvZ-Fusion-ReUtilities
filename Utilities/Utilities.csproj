@@ -12,7 +12,7 @@
 		<AssemblyName>Utilities</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<GamePath>D:\Games\[Series] PvZ Mods\(Fangame) Fusion\Chinese 2.2</GamePath>
+		<GamePath>D:\Games\[Series] PvZ Mods\(Fangame) Fusion\(Latest - Solo)\Game Files</GamePath>
 	</PropertyGroup>
 
 	<ItemGroup>
