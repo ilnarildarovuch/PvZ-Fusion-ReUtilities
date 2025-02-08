@@ -42,7 +42,7 @@ namespace ReUtilities
 
         private void DisplayUtilityList()
         {
-            if (Utility.IsFeatureActive(Utility.UtilityType.ShowUtilities) || DateTime.Now - _startTime < TimeSpan.FromSeconds(5))
+            if (Utility.IsFeatureActive(Utility.ReUtilityType.ShowUtilities) || DateTime.Now - _startTime < TimeSpan.FromSeconds(5))
             {
                 string utilityText = Utility.GetUtilityStatus();
                 int maxLineLength = 0;
@@ -88,7 +88,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(CardUI.Update))]
             private static void Update(CardUI __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.NoCooldown))
                 {
                     __instance.CD = __instance.fullCD;
                     __instance.isAvailable = true;
@@ -103,7 +103,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(GloveMgr.CDUpdate))]
             private static void CDUpdate(GloveMgr __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.NoCooldown))
                 {
                     __instance.CD = __instance.fullCD;
                     __instance.avaliable = true;
@@ -118,7 +118,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(HammerMgr.CDUpdate))]
             private static void CDUpdate(HammerMgr __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.NoCooldown))
                 {
                     __instance.CD = __instance.fullCD;
                     __instance.avaliable = true;
@@ -133,19 +133,19 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Board.Update))]
             private static void Update(Board __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.UnlimitedSun))
                 {
                     __instance.theSun = 99999;
                 }
 
-                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.UnlimitedCoins))
                 {
                     __instance.theMoney = 2147400000;
                 }
 
-                __instance.freeCD = Utility.IsFeatureActive(Utility.UtilityType.NoCooldown) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
+                __instance.freeCD = Utility.IsFeatureActive(Utility.ReUtilityType.NoCooldown) || Utility.IsFeatureActive(Utility.ReUtilityType.DeveloperMode);
 
-                if (Utility.IsFeatureActive(Utility.UtilityType.StopZombieSpawn))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.StopZombieSpawn))
                 {
                     __instance.newZombieWaveCountDown = 15f;
                 }
@@ -176,6 +176,46 @@ namespace ReUtilities
                 }
             }
         }
+        [HarmonyPatch(typeof(CreatePlant))]
+        public static class CreatePlant_Patch
+        {
+            [HarmonyPostfix]
+            [HarmonyPatch(nameof(CreatePlant.CheckBox))]
+            private static void CheckBox(ref bool __result)
+            {
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.PlantEverywhere))
+                {
+                    __result = true;
+                }
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(CreatePlant.SetPlant))]
+            private static void SetPlant(ref bool isFreeSet)
+            {
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.PlantEverywhere))
+                {
+                    isFreeSet = true;
+                }
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(CreatePlant.Lim))]
+            private static bool Lim(ref bool __result)
+            {
+                __result = false;
+                return false;
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(CreatePlant.LimTravel))]
+            private static bool LimTravel(ref bool __result)
+            {
+                __result = false;
+                return false;
+            }
+        }
+
 
         [HarmonyPatch(typeof(Mouse))]
         public static class Mouse_Patch
@@ -184,7 +224,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Mouse.TryToSetPlantByCard))]
             private static void TryToSetPlantByCard(Mouse __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.ColumnPlants))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.ColumnPlants))
                 {
                     for (int i = 0; i < Board.Instance.rowNum; i++)
                     {
@@ -204,7 +244,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(InGameUIMgr.Update))]
             private static void Update(InGameUIMgr __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.UnlimitedSun) || Utility.IsFeatureActive(Utility.ReUtilityType.DeveloperMode))
                 {
                     __instance.sun.text = "∞";
                 }
@@ -218,7 +258,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Money.Update))]
             private static void Update(Money __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.UnlimitedCoins) || Utility.IsFeatureActive(Utility.ReUtilityType.DeveloperMode))
                 {
                     __instance.textMesh.text = "∞";
                     __instance.beanCount.text = "∞";
@@ -234,7 +274,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Plant.TakeDamage))]
             private static void TakeDamage(ref int damage)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.InvulnerablePlants))
                 {
                     damage = -500;
                 }
@@ -244,7 +284,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Plant.Die))]
             private static bool Die(Plant __instance)
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.InvulnerablePlants))
                 {
                     return false;
                 }
@@ -262,18 +302,6 @@ namespace ReUtilities
             }
         }
 
-        [HarmonyPatch(typeof(Zombie))]
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(Zombie.Die))]
-        private static bool TakeDamage(Zombie __instance)
-        {
-            if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerableZombies))
-            {
-                return false;
-            }
-            return true;
-        }
-
         [HarmonyPatch(typeof(GameAPP))]
         public static class GameAPP_Patch
         {
@@ -281,7 +309,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(GameAPP.Update))]
             private static void Update(GameAPP __instance)
             {
-                GameAPP.developerMode = Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
+                GameAPP.developerMode = Utility.IsFeatureActive(Utility.ReUtilityType.DeveloperMode);
                 GenerateItems();
             }
 
@@ -326,16 +354,16 @@ namespace ReUtilities
         {
             [HarmonyPrefix]
             [HarmonyPatch(nameof(GameLose.OnTriggerEnter2D))]
-            private static bool OnTriggerEnter2D() => !Utility.IsFeatureActive(Utility.UtilityType.StopGameOver);
+            private static bool OnTriggerEnter2D() => !Utility.IsFeatureActive(Utility.ReUtilityType.StopGameOver);
         }
     }
 
     // Main Utility Class
     internal static class Utility
     {
-        public enum UtilityType
+        public enum ReUtilityType
         {
-            UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants, InvulnerableZombies,
+            UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants,
             StopZombieSpawn, StopGameOver, PlantEverywhere,
             DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
             GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
@@ -343,34 +371,33 @@ namespace ReUtilities
             CharmAll, KillAllZombies, KillAllPlants
         }
 
-        private static readonly Dictionary<UtilityType, Feature> _features = new()
+        private static readonly Dictionary<ReUtilityType, Feature> _features = new()
         {
-            { UtilityType.UnlimitedSun, new Feature("Unlimited Sun", KeyCode.F1) },
-            { UtilityType.UnlimitedCoins, new Feature("Unlimited Coins", KeyCode.F2) },
-            { UtilityType.NoCooldown, new Feature("No Cooldown", KeyCode.F3) },
-            { UtilityType.InvulnerablePlants, new Feature("Invulnerable Plants", KeyCode.F4) },
-            { UtilityType.InvulnerableZombies, new Feature("Invulnerable Zombies", KeyCode.F5) },
-            { UtilityType.StopZombieSpawn, new Feature("Stop Zombie Spawn", KeyCode.F8) },
-            { UtilityType.StopGameOver, new Feature("Stop Game Over", KeyCode.F9) },
-            { UtilityType.PlantEverywhere, new Feature("Plant Everywhere", KeyCode.F10) },
-            { UtilityType.DeveloperMode, new Feature("Developer Mode", KeyCode.F11) },
-            { UtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon) },
-            { UtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote) },
-            { UtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash) },
-            { UtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0) },
-            { UtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1) },
-            { UtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2) },
-            { UtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3) },
-            { UtilityType.GenerateJack, new Feature("Generate Jack", KeyCode.Keypad4) },
-            { UtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5) },
-            { UtilityType.GenerateMecha, new Feature("Generate Mecha", KeyCode.Keypad6) },
-            { UtilityType.GenerateSuperMecha, new Feature("Generate Super Mecha", KeyCode.Keypad7) },
-            { UtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8) },
-            { UtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9) },
-            { UtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply) },
-            { UtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus) },
-            { UtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus) },
-            { UtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, false) }
+            { ReUtilityType.UnlimitedSun, new Feature("Unlimited Sun", KeyCode.F1, false) },
+            { ReUtilityType.UnlimitedCoins, new Feature("Unlimited Coins", KeyCode.F2, false) },
+            { ReUtilityType.NoCooldown, new Feature("No Cooldown", KeyCode.F3, false) },
+            { ReUtilityType.InvulnerablePlants, new Feature("Invulnerable Plants", KeyCode.F4, false) },
+            { ReUtilityType.StopZombieSpawn, new Feature("Stop Zombie Spawn", KeyCode.F8, false) },
+            { ReUtilityType.StopGameOver, new Feature("Stop Game Over", KeyCode.F9, false) },
+            { ReUtilityType.PlantEverywhere, new Feature("Plant Everywhere", KeyCode.F10, false) },
+            { ReUtilityType.DeveloperMode, new Feature("Developer Mode", KeyCode.F11, false) },
+            { ReUtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon, false) },
+            { ReUtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote, false) },
+            { ReUtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash, false) },
+            { ReUtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0, false) },
+            { ReUtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1, false) },
+            { ReUtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2, false) },
+            { ReUtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3, false) },
+            { ReUtilityType.GenerateJack, new Feature("Generate Jack", KeyCode.Keypad4, false) },
+            { ReUtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5, false) },
+            { ReUtilityType.GenerateMecha, new Feature("Generate Mecha", KeyCode.Keypad6, false) },
+            { ReUtilityType.GenerateSuperMecha, new Feature("Generate Super Mecha", KeyCode.Keypad7, false) },
+            { ReUtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8, false) },
+            { ReUtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9, false) },
+            { ReUtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply, false) },
+            { ReUtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus, false) },
+            { ReUtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus, false) },
+            { ReUtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, true) }
         };
 
         public static string GetUtilityStatus()
@@ -383,7 +410,7 @@ namespace ReUtilities
             return status.ToString();
         }
 
-        public static void ToggleFeature(UtilityType type)
+        public static void ToggleFeature(ReUtilityType type)
         {
             if (_features.TryGetValue(type, out var feature))
             {
@@ -395,12 +422,12 @@ namespace ReUtilities
             }
         }
 
-        public static bool IsFeatureActive(UtilityType type)
+        public static bool IsFeatureActive(ReUtilityType type)
         {
             return _features.TryGetValue(type, out var feature) && feature.IsActive;
         }
 
-        public static void SetFeatureActive(UtilityType type, bool value)
+        public static void SetFeatureActive(ReUtilityType type, bool value)
         {
             if (_features.TryGetValue(type, out var feature))
             {
@@ -428,20 +455,20 @@ namespace ReUtilities
             }
         }
 
-        private static bool IsSpecialFeature(UtilityType type)
+        private static bool IsSpecialFeature(ReUtilityType type)
         {
-            return type == UtilityType.GenerateTrophy || type == UtilityType.GenerateFertilizer ||
-                   type == UtilityType.GenerateBucket || type == UtilityType.GenerateHelmet ||
-                   type == UtilityType.GenerateJack || type == UtilityType.GeneratePickaxe ||
-                   type == UtilityType.GenerateMecha || type == UtilityType.GenerateSuperMecha ||
-                   type == UtilityType.GenerateMeteor || type == UtilityType.GenerateSprout ||
-                   type == UtilityType.CharmAll || type == UtilityType.KillAllZombies || type == UtilityType.KillAllPlants;
+            return type == ReUtilityType.GenerateTrophy || type == ReUtilityType.GenerateFertilizer ||
+                   type == ReUtilityType.GenerateBucket || type == ReUtilityType.GenerateHelmet ||
+                   type == ReUtilityType.GenerateJack || type == ReUtilityType.GeneratePickaxe ||
+                   type == ReUtilityType.GenerateMecha || type == ReUtilityType.GenerateSuperMecha ||
+                   type == ReUtilityType.GenerateMeteor || type == ReUtilityType.GenerateSprout ||
+                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants;
         }
 
         private class Feature
         {
             public string Name { get; }
-            public UtilityType Type { get; }
+            public ReUtilityType Type { get; }
             public KeyCode KeyCode { get; }
             public bool IsActive { get; set; }
 
@@ -449,14 +476,14 @@ namespace ReUtilities
             {
                 Name = name;
                 // Ensure the name matches exactly with the enum member by removing spaces or using explicit mapping
-                Type = (UtilityType)Enum.Parse(typeof(UtilityType), name.Replace(" ", ""), true);
+                Type = (ReUtilityType)Enum.Parse(typeof(ReUtilityType), name.Replace(" ", ""), true);
                 KeyCode = key;
                 IsActive = defaultValue;
             }
 
             public override string ToString()
             {
-                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities)
+                if (IsSpecialFeature(Type) || Type == ReUtilityType.ShowUtilities)
                 {
                     return $"[{KeyCode}] {Name}";
                 }
