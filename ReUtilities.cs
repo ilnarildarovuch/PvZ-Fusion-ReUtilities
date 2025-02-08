@@ -3,11 +3,12 @@ using MelonLoader;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using Il2Cpp;
 
-[assembly: MelonInfo(typeof(Utilities.Core), "ReUtilities", "221.0.0", "", null)]
+[assembly: MelonInfo(typeof(ReUtilities.Core), "ReUtilities", "221.0.0", "Open distribution", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
-namespace Utilities
+namespace ReUtilities
 {
     // Core Class
     public class Core : MelonMod
@@ -85,12 +86,12 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch(nameof(CardUI.Update))]
-            private static void Update(CardUI instance)
+            private static void Update(CardUI __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    instance.CD = instance.fullCD;
-                    instance.isAvailable = true;
+                    __instance.CD = __instance.fullCD;
+                    __instance.isAvailable = true;
                 }
             }
         }
@@ -100,12 +101,12 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch(nameof(GloveMgr.CDUpdate))]
-            private static void CDUpdate(GloveMgr instance)
+            private static void CDUpdate(GloveMgr __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    instance.CD = instance.fullCD;
-                    instance.avaliable = true;
+                    __instance.CD = __instance.fullCD;
+                    __instance.avaliable = true;
                 }
             }
         }
@@ -115,12 +116,12 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch(nameof(HammerMgr.CDUpdate))]
-            private static void CDUpdate(HammerMgr instance)
+            private static void CDUpdate(HammerMgr __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    instance.CD = instance.fullCD;
-                    instance.avaliable = true;
+                    __instance.CD = __instance.fullCD;
+                    __instance.avaliable = true;
                 }
             }
         }
@@ -130,41 +131,48 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch(nameof(Board.Update))]
-            private static void Update(Board instance)
+            private static void Update(Board __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun))
                 {
-                    instance.theSun = 99999;
+                    __instance.theSun = 99999;
                 }
 
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins))
                 {
-                    instance.theMoney = 2147400000;
+                    __instance.theMoney = 2147400000;
                 }
 
-                instance.freeCD = Utility.IsFeatureActive(Utility.UtilityType.NoCooldown) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
+                __instance.freeCD = Utility.IsFeatureActive(Utility.UtilityType.NoCooldown) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
 
                 if (Utility.IsFeatureActive(Utility.UtilityType.StopZombieSpawn))
                 {
-                    instance.newZombieWaveCountDown = 15f;
+                    __instance.newZombieWaveCountDown = 15f;
                 }
 
-                HandleCustomFeatures(instance);
+                HandleCustomFeatures(__instance);
             }
 
-            private static void HandleCustomFeatures(Board instance)
+            private static void HandleCustomFeatures(Board __instance)
             {
                 if (Input.GetKeyDown(KeyCode.Quote))
                 {
                     Core.IsScaredyDreamEnabled = !Core.IsScaredyDreamEnabled;
-                    instance.boardTag.isScaredyDream = Core.IsScaredyDreamEnabled;
+                    __instance.boardTag = new Board.BoardTag
+                    {
+                        isScaredyDream = Core.IsScaredyDreamEnabled
+                    };
                 }
 
                 if (Input.GetKeyDown(KeyCode.Backslash))
                 {
                     Core.IsSeedRainEnabled = !Core.IsSeedRainEnabled;
-                    instance.boardTag.isSeedRain = Core.IsSeedRainEnabled;
-                    instance.boardTag.isNight = Core.IsSeedRainEnabled;
+                    __instance.boardTag = new Board.BoardTag
+                    {
+                        isNight = Core.IsSeedRainEnabled,
+                        isScaredyDream = Core.IsScaredyDreamEnabled,
+                        isSeedRain = Core.IsSeedRainEnabled
+                    };
                 }
             }
         }
@@ -174,15 +182,15 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch(nameof(Mouse.TryToSetPlantByCard))]
-            private static void TryToSetPlantByCard(Mouse instance)
+            private static void TryToSetPlantByCard(Mouse __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.ColumnPlants))
                 {
                     for (int i = 0; i < Board.Instance.rowNum; i++)
                     {
-                        if (i != instance.theMouseRow)
+                        if (i != __instance.theMouseRow)
                         {
-                            CreatePlant.Instance.SetPlant(instance.theMouseColumn, i, instance.thePlantTypeOnMouse, null, default(Vector2), false, true);
+                            CreatePlant.Instance.SetPlant(__instance.theMouseColumn, i, __instance.thePlantTypeOnMouse, null, default(Vector2), false, true);
                         }
                     }
                 }
@@ -194,11 +202,11 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch(nameof(InGameUIMgr.Update))]
-            private static void Update(InGameUIMgr instance)
+            private static void Update(InGameUIMgr __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
                 {
-                    instance.sun.text = "∞";
+                    __instance.sun.text = "∞";
                 }
             }
         }
@@ -208,13 +216,13 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch(nameof(Money.Update))]
-            private static void Update(Money instance)
+            private static void Update(Money __instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
                 {
-                    instance.textMesh.text = "∞";
-                    instance.beanCount.text = "∞";
-                    instance.beanCount2.text = "∞";
+                    __instance.textMesh.text = "∞";
+                    __instance.beanCount.text = "∞";
+                    __instance.beanCount2.text = "∞";
                 }
             }
         }
@@ -228,43 +236,42 @@ namespace Utilities
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
                 {
-                    damage = 0;
+                    damage = -500;
                 }
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(Plant.Die))]
+            private static bool Die(Plant __instance)
+            {
+                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
+                {
+                    return false;
+                }
+                return true;
             }
 
             [HarmonyPostfix]
             [HarmonyPatch(nameof(Plant.Update))]
-            private static void Update(Plant instance)
+            private static void Update(Plant __instance)
             {
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    instance.Die(0);
+                    __instance.Die(0);
                 }
             }
         }
 
         [HarmonyPatch(typeof(Zombie))]
-        public static class Zombie_Patch
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(Zombie.Die))]
+        private static bool TakeDamage(Zombie __instance)
         {
-            [HarmonyPrefix]
-            [HarmonyPatch(nameof(Zombie.TakeDamage))]
-            private static void TakeDamage(ref int damage)
+            if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerableZombies))
             {
-                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerableZombies))
-                {
-                    damage = 0;
-                }
-
-                if (Utility.IsFeatureActive(Utility.UtilityType.DoubleDamage))
-                {
-                    damage *= 2;
-                }
-
-                if (Utility.IsFeatureActive(Utility.UtilityType.SuperDamage))
-                {
-                    damage *= 200;
-                }
+                return false;
             }
+            return true;
         }
 
         [HarmonyPatch(typeof(GameAPP))]
@@ -272,9 +279,9 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch(nameof(GameAPP.Update))]
-            private static void Update(GameAPP instance)
+            private static void Update(GameAPP __instance)
             {
-                instance.developerMode = Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
+                GameAPP.developerMode = Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
                 GenerateItems();
             }
 
@@ -329,7 +336,7 @@ namespace Utilities
         public enum UtilityType
         {
             UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants, InvulnerableZombies,
-            DoubleDamage, SuperDamage, StopZombieSpawn, StopGameOver, PlantEverywhere,
+            StopZombieSpawn, StopGameOver, PlantEverywhere,
             DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
             GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
             GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout,
@@ -338,45 +345,41 @@ namespace Utilities
 
         private static readonly Dictionary<UtilityType, Feature> _features = new()
         {
-            { UtilityType.UnlimitedSun, new Feature("Бесконечное солнце", KeyCode.F1) },
-            { UtilityType.UnlimitedCoins, new Feature("Бесконечные монеты", KeyCode.F2) },
-            { UtilityType.NoCooldown, new Feature("Без отктата", KeyCode.F3) },
-            { UtilityType.InvulnerablePlants, new Feature("Неуязвимые растения", KeyCode.F4) },
-            { UtilityType.InvulnerableZombies, new Feature("Неуязвимые зомби", KeyCode.F5) },
-            { UtilityType.DoubleDamage, new Feature("Двойной урон у растений", KeyCode.F6) },
-            { UtilityType.SuperDamage, new Feature("10-ый урон у растений", KeyCode.F7) },
-            { UtilityType.StopZombieSpawn, new Feature("Остановить создание зомби", KeyCode.F8) },
-            { UtilityType.StopGameOver, new Feature("Остановить Game Over", KeyCode.F9) },
-            { UtilityType.PlantEverywhere, new Feature("Ставить растения куда-угодно", KeyCode.F10) },
-            { UtilityType.DeveloperMode, new Feature("Режим Создателя", KeyCode.F11) },
-            { UtilityType.ColumnPlants, new Feature("Ставить растения в столбцы", KeyCode.Semicolon) },
-            { UtilityType.ScaredyDream, new Feature("Мечта Трусогриба", KeyCode.Quote) },
-            { UtilityType.SeedRain, new Feature("Дождь из Семян", KeyCode.Backslash) },
-            { UtilityType.GenerateTrophy, new Feature("Создать трофей", KeyCode.Keypad0) },
-            { UtilityType.GenerateFertilizer, new Feature("Создать удобрение", KeyCode.Keypad1) },
-            { UtilityType.GenerateBucket, new Feature("Создать Ведро", KeyCode.Keypad2) },
-            { UtilityType.GenerateHelmet, new Feature("Создать Шлем", KeyCode.Keypad3) },
-            { UtilityType.GenerateJack, new Feature("Создать взрывную шкатулку", KeyCode.Keypad4) },
-            { UtilityType.GeneratePickaxe, new Feature("Создать Кирку", KeyCode.Keypad5) },
-            { UtilityType.GenerateMecha, new Feature("Создать фрагмент Меха", KeyCode.Keypad6) },
-            { UtilityType.GenerateSuperMecha, new Feature("Создать фрагмент Гига-Меха", KeyCode.Keypad7) },
-            { UtilityType.GenerateMeteor, new Feature("Создать Метеорит", KeyCode.Keypad8) },
-            { UtilityType.GenerateSprout, new Feature("Создать Кубок", KeyCode.Keypad9) },
-            { UtilityType.CharmAll, new Feature("Очаровать всех зомби", KeyCode.KeypadMultiply) },
-            { UtilityType.KillAllZombies, new Feature("Убить всех зомби", KeyCode.KeypadMinus) },
-            { UtilityType.KillAllPlants, new Feature("Убить все растения", KeyCode.KeypadPlus) },
-            { UtilityType.ShowUtilities, new Feature("Список читов", KeyCode.F12, false) }
+            { UtilityType.UnlimitedSun, new Feature("Unlimited Sun", KeyCode.F1) },
+            { UtilityType.UnlimitedCoins, new Feature("Unlimited Coins", KeyCode.F2) },
+            { UtilityType.NoCooldown, new Feature("No Cooldown", KeyCode.F3) },
+            { UtilityType.InvulnerablePlants, new Feature("Invulnerable Plants", KeyCode.F4) },
+            { UtilityType.InvulnerableZombies, new Feature("Invulnerable Zombies", KeyCode.F5) },
+            { UtilityType.StopZombieSpawn, new Feature("Stop Zombie Spawn", KeyCode.F8) },
+            { UtilityType.StopGameOver, new Feature("Stop Game Over", KeyCode.F9) },
+            { UtilityType.PlantEverywhere, new Feature("Plant Everywhere", KeyCode.F10) },
+            { UtilityType.DeveloperMode, new Feature("Developer Mode", KeyCode.F11) },
+            { UtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon) },
+            { UtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote) },
+            { UtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash) },
+            { UtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0) },
+            { UtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1) },
+            { UtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2) },
+            { UtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3) },
+            { UtilityType.GenerateJack, new Feature("Generate Jack", KeyCode.Keypad4) },
+            { UtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5) },
+            { UtilityType.GenerateMecha, new Feature("Generate Mecha", KeyCode.Keypad6) },
+            { UtilityType.GenerateSuperMecha, new Feature("Generate Super Mecha", KeyCode.Keypad7) },
+            { UtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8) },
+            { UtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9) },
+            { UtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply) },
+            { UtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus) },
+            { UtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus) },
+            { UtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, false) }
         };
 
         public static string GetUtilityStatus()
         {
             StringBuilder status = new StringBuilder("ReUtilities:\n");
-
             foreach (var feature in _features.Values)
             {
                 status.AppendLine(feature.ToString());
             }
-
             return status.ToString();
         }
 
@@ -385,10 +388,9 @@ namespace Utilities
             if (_features.TryGetValue(type, out var feature))
             {
                 feature.IsActive = !feature.IsActive;
-
                 if (!IsSpecialFeature(type))
                 {
-                    Core.ShowToast($"{feature.Name} [{feature.IsActive ? "ON" : "OFF"}]");
+                    Core.ShowToast($"{feature.Name} [{(feature.IsActive ? "ON" : "OFF")}]");
                 }
             }
         }
@@ -419,11 +421,10 @@ namespace Utilities
 
         public static void SpawnItem(string resourcePath)
         {
-            GameObject item = Resources.Load(resourcePath);
-
+            GameObject item = Resources.Load<GameObject>(resourcePath) as GameObject;
             if (item != null)
             {
-                Object.Instantiate(item, Vector2.zero, Quaternion.identity, GameAPP.board.transform);
+                UnityEngine.Object.Instantiate(item, Vector2.zero, Quaternion.identity, GameAPP.board.transform);
             }
         }
 
@@ -447,15 +448,19 @@ namespace Utilities
             public Feature(string name, KeyCode key, bool defaultValue = true)
             {
                 Name = name;
-                Type = (UtilityType)(Enum.Parse(typeof(UtilityType), name.Replace(' ', '_')));
+                // Ensure the name matches exactly with the enum member by removing spaces or using explicit mapping
+                Type = (UtilityType)Enum.Parse(typeof(UtilityType), name.Replace(" ", ""), true);
                 KeyCode = key;
                 IsActive = defaultValue;
             }
 
             public override string ToString()
             {
-                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities){return $"[{KeyCode}] {Name}";}
-                return $"[{KeyCode}] {Name} [{IsActive ? "ON" : "OFF"}]";
+                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities)
+                {
+                    return $"[{KeyCode}] {Name}";
+                }
+                return $"[{KeyCode}] {Name} [{(IsActive ? "ON" : "OFF")}]";
             }
         }
     }
