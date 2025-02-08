@@ -23,7 +23,7 @@ namespace Utilities
 
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg("Utilities Addon is loaded!");
+            base.OnInitializeMelon();
         }
 
         public override void OnLateInitializeMelon() => _startTime = DateTime.Now;
@@ -262,7 +262,7 @@ namespace Utilities
 
                 if (Utility.IsFeatureActive(Utility.UtilityType.SuperDamage))
                 {
-                    damage *= 100;
+                    damage *= 200;
                 }
             }
         }
@@ -338,39 +338,39 @@ namespace Utilities
 
         private static readonly Dictionary<UtilityType, Feature> _features = new()
         {
-            { UtilityType.UnlimitedSun, new Feature("Unlimited Sun", KeyCode.F1) },
-            { UtilityType.UnlimitedCoins, new Feature("Unlimited Coins", KeyCode.F2) },
-            { UtilityType.NoCooldown, new Feature("No Cooldown", KeyCode.F3) },
-            { UtilityType.InvulnerablePlants, new Feature("Invulnerable Plants", KeyCode.F4) },
-            { UtilityType.InvulnerableZombies, new Feature("Invulnerable Zombies", KeyCode.F5) },
-            { UtilityType.DoubleDamage, new Feature("Double Plant Damage", KeyCode.F6) },
-            { UtilityType.SuperDamage, new Feature("10x Plant Damage", KeyCode.F7) },
-            { UtilityType.StopZombieSpawn, new Feature("Stop Zombie Spawn", KeyCode.F8) },
-            { UtilityType.StopGameOver, new Feature("Stop Game Over", KeyCode.F9) },
-            { UtilityType.PlantEverywhere, new Feature("Plant Everywhere", KeyCode.F10) },
-            { UtilityType.DeveloperMode, new Feature("Developer Mode", KeyCode.F11) },
-            { UtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon) },
-            { UtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote) },
-            { UtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash) },
-            { UtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0) },
-            { UtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1) },
-            { UtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2) },
-            { UtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3) },
-            { UtilityType.GenerateJack, new Feature("Generate Jack-in-the-Box", KeyCode.Keypad4) },
-            { UtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5) },
-            { UtilityType.GenerateMecha, new Feature("Generate Mecha Fragment", KeyCode.Keypad6) },
-            { UtilityType.GenerateSuperMecha, new Feature("Generate Giga Mecha Fragment", KeyCode.Keypad7) },
-            { UtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8) },
-            { UtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9) },
-            { UtilityType.CharmAll, new Feature("Charm All Zombies", KeyCode.KeypadMultiply) },
-            { UtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus) },
-            { UtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus) },
-            { UtilityType.ShowUtilities, new Feature("Utilities List", KeyCode.F12, false) }
+            { UtilityType.UnlimitedSun, new Feature("Бесконечное солнце", KeyCode.F1) },
+            { UtilityType.UnlimitedCoins, new Feature("Бесконечные монеты", KeyCode.F2) },
+            { UtilityType.NoCooldown, new Feature("Без отктата", KeyCode.F3) },
+            { UtilityType.InvulnerablePlants, new Feature("Неуязвимые растения", KeyCode.F4) },
+            { UtilityType.InvulnerableZombies, new Feature("Неуязвимые зомби", KeyCode.F5) },
+            { UtilityType.DoubleDamage, new Feature("Двойной урон у растений", KeyCode.F6) },
+            { UtilityType.SuperDamage, new Feature("10-ый урон у растений", KeyCode.F7) },
+            { UtilityType.StopZombieSpawn, new Feature("Остановить создание зомби", KeyCode.F8) },
+            { UtilityType.StopGameOver, new Feature("Остановить Game Over", KeyCode.F9) },
+            { UtilityType.PlantEverywhere, new Feature("Ставить растения куда-угодно", KeyCode.F10) },
+            { UtilityType.DeveloperMode, new Feature("Режим Создателя", KeyCode.F11) },
+            { UtilityType.ColumnPlants, new Feature("Ставить растения в столбцы", KeyCode.Semicolon) },
+            { UtilityType.ScaredyDream, new Feature("Мечта Трусогриба", KeyCode.Quote) },
+            { UtilityType.SeedRain, new Feature("Дождь из Семян", KeyCode.Backslash) },
+            { UtilityType.GenerateTrophy, new Feature("Создать трофей", KeyCode.Keypad0) },
+            { UtilityType.GenerateFertilizer, new Feature("Создать удобрение", KeyCode.Keypad1) },
+            { UtilityType.GenerateBucket, new Feature("Создать Ведро", KeyCode.Keypad2) },
+            { UtilityType.GenerateHelmet, new Feature("Создать Шлем", KeyCode.Keypad3) },
+            { UtilityType.GenerateJack, new Feature("Создать взрывную шкатулку", KeyCode.Keypad4) },
+            { UtilityType.GeneratePickaxe, new Feature("Создать Кирку", KeyCode.Keypad5) },
+            { UtilityType.GenerateMecha, new Feature("Создать фрагмент Меха", KeyCode.Keypad6) },
+            { UtilityType.GenerateSuperMecha, new Feature("Создать фрагмент Гига-Меха", KeyCode.Keypad7) },
+            { UtilityType.GenerateMeteor, new Feature("Создать Метеорит", KeyCode.Keypad8) },
+            { UtilityType.GenerateSprout, new Feature("Создать Кубок", KeyCode.Keypad9) },
+            { UtilityType.CharmAll, new Feature("Очаровать всех зомби", KeyCode.KeypadMultiply) },
+            { UtilityType.KillAllZombies, new Feature("Убить всех зомби", KeyCode.KeypadMinus) },
+            { UtilityType.KillAllPlants, new Feature("Убить все растения", KeyCode.KeypadPlus) },
+            { UtilityType.ShowUtilities, new Feature("Список читов", KeyCode.F12, false) }
         };
 
         public static string GetUtilityStatus()
         {
-            StringBuilder status = new StringBuilder("Utilities:\n");
+            StringBuilder status = new StringBuilder("ReUtilities:\n");
 
             foreach (var feature in _features.Values)
             {
@@ -455,7 +455,6 @@ namespace Utilities
             public override string ToString()
             {
                 if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities){return $"[{KeyCode}] {Name}";}
-                
                 return $"[{KeyCode}] {Name} [{IsActive ? "ON" : "OFF"}]";
             }
         }
