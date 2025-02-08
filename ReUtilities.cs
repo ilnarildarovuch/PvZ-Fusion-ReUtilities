@@ -1,7 +1,6 @@
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
-using Il2Cpp;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,20 +12,21 @@ namespace Utilities
     // Core Class
     public class Core : MelonMod
     {
-        private static DateTime dtStart;
-        private static DateTime? dtStartToast;
-        private static string toast_txt;
-        public static bool isSeedRain = false;
-        public static bool isScaredyDream = false;
+        private static DateTime _startTime;
+        private static DateTime? _toastStartTime;
+        private static string _toastMessage;
 
-        public override void OnEarlyInitializeMelon() => dtStart = DateTime.Now;
+        public static bool IsSeedRainEnabled { get; set; } = false;
+        public static bool IsScaredyDreamEnabled { get; set; } = false;
+
+        public override void OnEarlyInitializeMelon() => _startTime = DateTime.Now;
 
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg("Utilities Addon is loaded!");
         }
 
-        public override void OnLateInitializeMelon() => dtStart = DateTime.Now;
+        public override void OnLateInitializeMelon() => _startTime = DateTime.Now;
 
         public override void OnLateUpdate()
         {
@@ -35,55 +35,62 @@ namespace Utilities
 
         public override void OnGUI()
         {
-            if (Utility.GetActive(Utility.UtilityType.ShowUtilities) || DateTime.Now - dtStart < new TimeSpan(0, 0, 0, 5))
-            {
-                string text = Utility.GetUtilities();
-                int num = 0;
-                int num2 = 20;
-                foreach (string text2 in text.Split('\n', StringSplitOptions.None))
-                {
-                    if (text2.Length > num2)
-                    {
-                        num2 = text2.Length;
-                    }
-                    num++;
-                }
-                bool flag = GUI.Button(new Rect(10f, 30f, (float)num2 * 10f, (float)num * 16f + 15f), text);
-            }
+            DisplayUtilityList();
+            DisplayToastMessage();
+        }
 
-            if (dtStartToast != null)
+        private void DisplayUtilityList()
+        {
+            if (Utility.IsFeatureActive(Utility.UtilityType.ShowUtilities) || DateTime.Now - _startTime < TimeSpan.FromSeconds(5))
             {
-                GUI.Button(new Rect(10f, 10f, 200f, 20f), "\n" + toast_txt + "\n");
-                TimeSpan? timeSpan = DateTime.Now - dtStartToast;
-                TimeSpan t = new TimeSpan(0, 0, 0, 2);
-                if (timeSpan > t)
+                string utilityText = Utility.GetUtilityStatus();
+                int maxLineLength = 0;
+                int lineCount = 0;
+
+                foreach (string line in utilityText.Split('\n'))
                 {
-                    dtStartToast = null;
+                    maxLineLength = Math.Max(maxLineLength, line.Length);
+                    lineCount++;
+                }
+
+                GUI.Button(new Rect(10f, 30f, maxLineLength * 10f, lineCount * 16f + 15f), utilityText);
+            }
+        }
+
+        private void DisplayToastMessage()
+        {
+            if (_toastStartTime != null)
+            {
+                GUI.Button(new Rect(10f, 10f, 200f, 20f), $"\n{_toastMessage}\n");
+
+                if (DateTime.Now - _toastStartTime > TimeSpan.FromSeconds(2))
+                {
+                    _toastStartTime = null;
                 }
             }
         }
 
         public static void ShowToast(string message)
         {
-            toast_txt = message;
-            dtStartToast = new DateTime?(DateTime.Now);
+            _toastMessage = message;
+            _toastStartTime = DateTime.Now;
         }
     }
 
     // Cheat Patches
-    internal class Patches
+    internal static class Patches
     {
         [HarmonyPatch(typeof(CardUI))]
         public static class CardUI_Patch
         {
             [HarmonyPostfix]
             [HarmonyPatch("Update")]
-            private static void Update(CardUI __instance)
+            private static void Update(CardUI instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    __instance.CD = __instance.fullCD;
-                    __instance.isAvailable = true;
+                    instance.CD = instance.fullCD;
+                    instance.isAvailable = true;
                 }
             }
         }
@@ -93,12 +100,12 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("CDUpdate")]
-            private static void CDUpdate(GloveMgr __instance)
+            private static void CDUpdate(GloveMgr instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    __instance.CD = __instance.fullCD;
-                    __instance.avaliable = true;
+                    instance.CD = instance.fullCD;
+                    instance.avaliable = true;
                 }
             }
         }
@@ -108,12 +115,12 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("CDUpdate")]
-            private static void CDUpdate(HammerMgr __instance)
+            private static void CDUpdate(HammerMgr instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.NoCooldown))
+                if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
                 {
-                    __instance.CD = __instance.fullCD;
-                    __instance.avaliable = true;
+                    instance.CD = instance.fullCD;
+                    instance.avaliable = true;
                 }
             }
         }
@@ -123,40 +130,41 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch("Update")]
-            private static void Update(Board __instance)
+            private static void Update(Board instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.UnliSun))
+                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun))
                 {
-                    __instance.theSun = 99999;
+                    instance.theSun = 99999;
                 }
 
-                if (Utility.GetActive(Utility.UtilityType.UnliCoins))
+                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins))
                 {
-                    __instance.theMoney = 2147400000;
+                    instance.theMoney = 2147400000;
                 }
 
-                __instance.freeCD = Utility.GetActive(Utility.UtilityType.NoCooldown) || Utility.GetActive(Utility.UtilityType.DeveloperMode);
+                instance.freeCD = Utility.IsFeatureActive(Utility.UtilityType.NoCooldown) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
 
-                if (Utility.GetActive(Utility.UtilityType.StopZombieSpawn))
+                if (Utility.IsFeatureActive(Utility.UtilityType.StopZombieSpawn))
                 {
-                    __instance.newZombieWaveCountDown = 15f;
+                    instance.newZombieWaveCountDown = 15f;
                 }
 
+                HandleCustomFeatures(instance);
+            }
+
+            private static void HandleCustomFeatures(Board instance)
+            {
                 if (Input.GetKeyDown(KeyCode.Quote))
                 {
-                    Core.isScaredyDream = !Core.isScaredyDream;
-                    Board.BoardTag boardTag = Board.Instance.boardTag;
-                    boardTag.isScaredyDream = Core.isScaredyDream;
-                    Board.Instance.boardTag = boardTag;
+                    Core.IsScaredyDreamEnabled = !Core.IsScaredyDreamEnabled;
+                    instance.boardTag.isScaredyDream = Core.IsScaredyDreamEnabled;
                 }
 
                 if (Input.GetKeyDown(KeyCode.Backslash))
                 {
-                    Core.isSeedRain = !Core.isSeedRain;
-                    Board.BoardTag boardTag = Board.Instance.boardTag;
-                    boardTag.isSeedRain = Core.isSeedRain;
-                    boardTag.isNight = Core.isSeedRain;
-                    Board.Instance.boardTag = boardTag;
+                    Core.IsSeedRainEnabled = !Core.IsSeedRainEnabled;
+                    instance.boardTag.isSeedRain = Core.IsSeedRainEnabled;
+                    instance.boardTag.isNight = Core.IsSeedRainEnabled;
                 }
             }
         }
@@ -166,63 +174,19 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("TryToSetPlantByCard")]
-            private static void TryToSetPlantByCard(Mouse __instance)
+            private static void TryToSetPlantByCard(Mouse instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.ColumnPlants))
+                if (Utility.IsFeatureActive(Utility.UtilityType.ColumnPlants))
                 {
                     for (int i = 0; i < Board.Instance.rowNum; i++)
                     {
-                        if (i != __instance.theMouseRow)
+                        if (i != instance.theMouseRow)
                         {
-                            CreatePlant.Instance.SetPlant(__instance.theMouseColumn, i, __instance.thePlantTypeOnMouse, null, default(Vector2), false, true);
+                            CreatePlant.Instance.SetPlant(instance.theMouseColumn, i, instance.thePlantTypeOnMouse, null, default(Vector2), false, true);
                         }
                     }
                 }
             }
-        }
-
-        [HarmonyPatch(typeof(CreatePlant))]
-        public static class CreatePlant_Patch
-        {
-#if X
-            [HarmonyPostfix]
-            [HarmonyPatch("CheckBox")]
-            private static void CheckBox(ref bool __result)
-            {
-                if (Utility.GetActive(Utility.UtilityType.PlantEverywhere))
-                {
-                    __result = true;
-                }
-            }
-#endif
-
-            [HarmonyPrefix]
-            [HarmonyPatch("SetPlant")]
-            private static void SetPlant(ref bool isFreeSet)
-            {
-                if (Utility.GetActive(Utility.UtilityType.PlantEverywhere))
-                {
-                    isFreeSet = true;
-                }
-            }
-
-#if TESTING
-            [HarmonyPrefix]
-            [HarmonyPatch("Lim")]
-            private static bool Lim(ref bool __result)
-            {
-                __result = false;
-                return false;
-            }
-
-            [HarmonyPrefix]
-            [HarmonyPatch("LimTravel")]
-            private static bool LimTravel(ref bool __result)
-            {
-                __result = false;
-                return false;
-            }
-#endif
         }
 
         [HarmonyPatch(typeof(InGameUIMgr))]
@@ -230,16 +194,11 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch("Update")]
-            private static void Update(InGameUIMgr __instance)
+            private static void Update(InGameUIMgr instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.UnliSun))
+                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
                 {
-                    __instance.sun.text = "∞";
-                }
-
-                if (Utility.GetActive(Utility.UtilityType.DeveloperMode))
-                {
-                    __instance.sun.text = "∞";
+                    instance.sun.text = "∞";
                 }
             }
         }
@@ -249,20 +208,13 @@ namespace Utilities
         {
             [HarmonyPostfix]
             [HarmonyPatch("Update")]
-            private static void Update(Money __instance)
+            private static void Update(Money instance)
             {
-                if (Utility.GetActive(Utility.UtilityType.UnliCoins))
+                if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
                 {
-                    __instance.textMesh.text = "∞";
-                    __instance.beanCount.text = "∞";
-                    __instance.beanCount2.text = "∞";
-                }
-
-                if (Utility.GetActive(Utility.UtilityType.DeveloperMode))
-                {
-                    __instance.textMesh.text = "∞";
-                    __instance.beanCount.text = "∞";
-                    __instance.beanCount2.text = "∞";
+                    instance.textMesh.text = "∞";
+                    instance.beanCount.text = "∞";
+                    instance.beanCount2.text = "∞";
                 }
             }
         }
@@ -274,7 +226,7 @@ namespace Utilities
             [HarmonyPatch("TakeDamage")]
             private static void TakeDamage(ref int damage)
             {
-                if (Utility.GetActive(Utility.UtilityType.InvulPlants))
+                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
                 {
                     damage = 0;
                 }
@@ -282,11 +234,11 @@ namespace Utilities
 
             [HarmonyPostfix]
             [HarmonyPatch("Update")]
-            private static void Update(Plant __instance)
+            private static void Update(Plant instance)
             {
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    __instance.Die(0);
+                    instance.Die(0);
                 }
             }
         }
@@ -296,21 +248,21 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("TakeDamage")]
-            private static void TakeDamage(ref int theDamage)
+            private static void TakeDamage(ref int damage)
             {
-                if (Utility.GetActive(Utility.UtilityType.InvulZombies))
+                if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerableZombies))
                 {
-                    theDamage = 0;
+                    damage = 0;
                 }
 
-                if (Utility.GetActive(Utility.UtilityType.DoubleDamage))
+                if (Utility.IsFeatureActive(Utility.UtilityType.DoubleDamage))
                 {
-                    theDamage *= 2;
+                    damage *= 2;
                 }
 
-                if (Utility.GetActive(Utility.UtilityType.SuperDamage))
+                if (Utility.IsFeatureActive(Utility.UtilityType.SuperDamage))
                 {
-                    theDamage *= 100;
+                    damage *= 100;
                 }
             }
         }
@@ -320,83 +272,43 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("Update")]
-            private static void Update(GameAPP __instance)
+            private static void Update(GameAPP instance)
             {
-                GameAPP.developerMode = Utility.GetActive(Utility.UtilityType.DeveloperMode);
-                Generate();
+                instance.developerMode = Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
+                GenerateItems();
             }
 
-            private static void Generate()
+            private static void GenerateItems()
             {
-                if (Input.GetKeyDown(KeyCode.Keypad0))
-                {
-                    Utility.SpawnItem("Board/Award/TrophyPrefab");
-                }
+                if (Input.GetKeyDown(KeyCode.Keypad0)) Utility.SpawnItem("Board/Award/TrophyPrefab");
+                if (Input.GetKeyDown(KeyCode.Keypad1)) Utility.SpawnItem("Items/fertilize/Ferilize");
+                if (Input.GetKeyDown(KeyCode.Keypad2)) Utility.SpawnItem("Items/Bucket");
+                if (Input.GetKeyDown(KeyCode.Keypad3)) Utility.SpawnItem("Items/Helmet");
+                if (Input.GetKeyDown(KeyCode.Keypad4)) Utility.SpawnItem("Items/JackBox");
+                if (Input.GetKeyDown(KeyCode.Keypad5)) Utility.SpawnItem("Items/Pickaxe");
+                if (Input.GetKeyDown(KeyCode.Keypad6)) Utility.SpawnItem("Items/Machine");
+                if (Input.GetKeyDown(KeyCode.Keypad7)) Utility.SpawnItem("Items/SuperMachine");
+                if (Input.GetKeyDown(KeyCode.Keypad8)) Board.Instance.CreateUltimateMateorite();
+                if (Input.GetKeyDown(KeyCode.Keypad9)) Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
+                if (Input.GetKeyDown(KeyCode.KeypadMultiply)) MindControlAllZombies();
+                if (Input.GetKeyDown(KeyCode.KeypadMinus)) KillAllZombies();
+            }
 
-                if (Input.GetKeyDown(KeyCode.Keypad1))
+            private static void MindControlAllZombies()
+            {
+                foreach (Zombie zombie in Board.Instance.zombieArray)
                 {
-                    Utility.SpawnItem("Items/fertilize/Ferilize");
+                    zombie?.SetMindControl();
                 }
+            }
 
-                if (Input.GetKeyDown(KeyCode.Keypad2))
+            private static void KillAllZombies()
+            {
+                foreach (Zombie zombie in Board.Instance.zombieArray)
                 {
-                    Utility.SpawnItem("Items/Bucket");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad3))
-                {
-                    Utility.SpawnItem("Items/Helmet");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad4))
-                {
-                    Utility.SpawnItem("Items/JackBox");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad5))
-                {
-                    Utility.SpawnItem("Items/Pickaxe");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad6))
-                {
-                    Utility.SpawnItem("Items/Machine");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad7))
-                {
-                    Utility.SpawnItem("Items/SuperMachine");
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad8))
-                {
-                    Board.Instance.CreateUltimateMateorite();
-                }
-
-                if (Input.GetKeyDown(KeyCode.Keypad9))
-                {
-                    Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
-                }
-
-                if (Input.GetKeyDown(KeyCode.KeypadMultiply))
-                {
-                    foreach (Zombie zombie in Board.Instance.zombieArray)
+                    if (zombie != null && !zombie.isMindControlled)
                     {
-                        if (zombie != null)
-                        {
-                            zombie.SetMindControl();
-                        }
-                    }
-                }
-
-                if (Input.GetKeyDown(KeyCode.KeypadMinus))
-                {
-                    foreach (Zombie zombie in Board.Instance.zombieArray)
-                    {
-                        if (zombie != null && !zombie.isMindControlled)
-                        {
-                            zombie.Die(1);
-                        }
+                        zombie.Die(1);
                     }
                 }
             }
@@ -407,171 +319,142 @@ namespace Utilities
         {
             [HarmonyPrefix]
             [HarmonyPatch("OnTriggerEnter2D")]
-            private static bool OnTriggerEnter2D()
-            {
-                return !Utility.GetActive(Utility.UtilityType.StopGameOver);
-            }
+            private static bool OnTriggerEnter2D() => !Utility.IsFeatureActive(Utility.UtilityType.StopGameOver);
         }
     }
 
-    // Main MelonLoader cheat-mod things
-    internal class Utility
+    // Main Utility Class
+    internal static class Utility
     {
         public enum UtilityType
         {
-            UnliSun, UnliCoins, NoCooldown, InvulPlants, InvulZombies, DoubleDamage, SuperDamage,
-            StopZombieSpawn, StopGameOver, PlantEverywhere, DeveloperMode, ShowUtilities,
-            ColumnPlants, ScaredyDream, SeedRain, GenerateTrophy, GenerateFertilizer,
-            GenerateBucket, GenerateHelmet, GenerateJack, GeneratePickaxe, GenerateMecha,
-            GenerateSuperMecha, GenerateMeteor, GenerateSprout, CharmAll, KillAllZombies, KillAllPlants
+            UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants, InvulnerableZombies,
+            DoubleDamage, SuperDamage, StopZombieSpawn, StopGameOver, PlantEverywhere,
+            DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
+            GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
+            GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout,
+            CharmAll, KillAllZombies, KillAllPlants
         }
 
-        private class UtilityFeature
+        private static readonly Dictionary<UtilityType, Feature> _features = new()
         {
-            public string Name { get; private set; }
-            public UtilityType UtilityType { get; private set; }
-            public KeyCode KeyCode { get; private set; }
-            public bool IsActive { get; set; }
-
-            public UtilityFeature(string Name, UtilityType UtilityType, KeyCode KeyCode, bool defaultValue = false)
-            {
-                this.Name = Name;
-                this.UtilityType = UtilityType;
-                this.KeyCode = KeyCode;
-                this.IsActive = defaultValue;
-            }
-
-            public void ToggleUtility()
-            {
-                IsActive = !IsActive;
-                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer ||
-                    this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet ||
-                    this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe ||
-                    this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha ||
-                    this.UtilityType == UtilityType.GenerateMeteor || this.UtilityType == UtilityType.GenerateSprout)
-                {
-                    return;
-                }
-
-                if (this.UtilityType == UtilityType.CharmAll || this.UtilityType == UtilityType.KillAllPlants || this.UtilityType == UtilityType.KillAllZombies)
-                {
-                    return;
-                }
-
-                if (this.UtilityType == UtilityType.ShowUtilities)
-                {
-                    return;
-                }
-
-                Core.ShowToast(string.Format("{0} [{1}]", this.Name, IsActive ? "ON" : "OFF"));
-            }
-
-            public override string ToString()
-            {
-                if (this.UtilityType == UtilityType.ShowUtilities)
-                {
-                    return string.Format("[{0}] {1}", this.KeyCode.ToString(), this.Name);
-                }
-
-                if (this.UtilityType == UtilityType.GenerateTrophy || this.UtilityType == UtilityType.GenerateFertilizer ||
-                    this.UtilityType == UtilityType.GenerateBucket || this.UtilityType == UtilityType.GenerateHelmet ||
-                    this.UtilityType == UtilityType.GenerateJack || this.UtilityType == UtilityType.GeneratePickaxe ||
-                    this.UtilityType == UtilityType.GenerateMecha || this.UtilityType == UtilityType.GenerateSuperMecha ||
-                    this.UtilityType == UtilityType.GenerateMeteor || this.UtilityType == UtilityType.GenerateSprout)
-                {
-                    return string.Format("[{0}] {1}", this.KeyCode.ToString(), this.Name);
-                }
-
-                if (this.UtilityType == UtilityType.CharmAll || this.UtilityType == UtilityType.KillAllPlants || this.UtilityType == UtilityType.KillAllZombies)
-                {
-                    return string.Format("[{0}] {1}", this.KeyCode.ToString(), this.Name);
-                }
-
-                return string.Format("[{0}] {1} [{2}]", this.KeyCode.ToString(), this.Name, IsActive ? "ON" : "OFF");
-            }
-        }
-
-        private static Dictionary<UtilityType, UtilityFeature> utilityLists = new Dictionary<UtilityType, UtilityFeature>()
-        {
-            {UtilityType.UnliSun, new UtilityFeature("Unlimited Sun", UtilityType.UnliSun, KeyCode.F1)},
-            {UtilityType.UnliCoins, new UtilityFeature("Unlimited Coins", UtilityType.UnliCoins, KeyCode.F2)},
-            {UtilityType.NoCooldown, new UtilityFeature("No Cooldown", UtilityType.NoCooldown, KeyCode.F3)},
-            {UtilityType.InvulPlants, new UtilityFeature("Invulnerable Plants", UtilityType.InvulPlants, KeyCode.F4)},
-            {UtilityType.InvulZombies, new UtilityFeature("Invulnerable Zombies", UtilityType.InvulZombies, KeyCode.F5)},
-            {UtilityType.DoubleDamage, new UtilityFeature("Double Plant Damage", UtilityType.DoubleDamage, KeyCode.F6)},
-            {UtilityType.SuperDamage, new UtilityFeature("10x Plant Damage", UtilityType.SuperDamage, KeyCode.F7)},
-            {UtilityType.StopZombieSpawn, new UtilityFeature("Stop Zombie Spawn", UtilityType.StopZombieSpawn, KeyCode.F8)},
-            {UtilityType.StopGameOver, new UtilityFeature("Stop Game Over", UtilityType.StopGameOver, KeyCode.F9)},
-            {UtilityType.PlantEverywhere, new UtilityFeature("Plant Everywhere", UtilityType.PlantEverywhere, KeyCode.F10)},
-            {UtilityType.DeveloperMode, new UtilityFeature("Developer Mode", UtilityType.DeveloperMode, KeyCode.F11)},
-            {UtilityType.ColumnPlants, new UtilityFeature("Column Plants", UtilityType.ColumnPlants, KeyCode.Semicolon)},
-            {UtilityType.ScaredyDream, new UtilityFeature("Scaredy Dream", UtilityType.ScaredyDream, KeyCode.Quote)},
-            {UtilityType.SeedRain, new UtilityFeature("Seed Rain", UtilityType.SeedRain, KeyCode.Backslash)},
-            {UtilityType.GenerateTrophy, new UtilityFeature("Generate Trophy", UtilityType.GenerateTrophy, KeyCode.Keypad0)},
-            {UtilityType.GenerateFertilizer, new UtilityFeature("Generate Fertilizer", UtilityType.GenerateFertilizer, KeyCode.Keypad1)},
-            {UtilityType.GenerateBucket, new UtilityFeature("Generate Bucket", UtilityType.GenerateBucket, KeyCode.Keypad2)},
-            {UtilityType.GenerateHelmet, new UtilityFeature("Generate Helmet", UtilityType.GenerateHelmet, KeyCode.Keypad3)},
-            {UtilityType.GenerateJack, new UtilityFeature("Generate Jack-in-the-Box", UtilityType.GenerateJack, KeyCode.Keypad4)},
-            {UtilityType.GeneratePickaxe, new UtilityFeature("Generate Pickaxe", UtilityType.GeneratePickaxe, KeyCode.Keypad5)},
-            {UtilityType.GenerateMecha, new UtilityFeature("Generate Mecha Fragment", UtilityType.GenerateMecha, KeyCode.Keypad6)},
-            {UtilityType.GenerateSuperMecha, new UtilityFeature("Generate Giga Mecha Fragment", UtilityType.GenerateSuperMecha, KeyCode.Keypad7)},
-            {UtilityType.GenerateMeteor, new UtilityFeature("Generate Meteor", UtilityType.GenerateMeteor, KeyCode.Keypad8)},
-            {UtilityType.GenerateSprout, new UtilityFeature("Generate Sprout", UtilityType.GenerateSprout, KeyCode.Keypad9)},
-            {UtilityType.CharmAll, new UtilityFeature("Charm All Zombies", UtilityType.CharmAll, KeyCode.KeypadMultiply)},
-            {UtilityType.KillAllZombies, new UtilityFeature("Kill All Zombies", UtilityType.KillAllZombies, KeyCode.KeypadMinus)},
-            {UtilityType.KillAllPlants, new UtilityFeature("Kill All Plants", UtilityType.KillAllPlants, KeyCode.KeypadPlus)},
-            {UtilityType.ShowUtilities, new UtilityFeature("Utilities List", UtilityType.ShowUtilities, KeyCode.F12, false)},
+            { UtilityType.UnlimitedSun, new Feature("Unlimited Sun", KeyCode.F1) },
+            { UtilityType.UnlimitedCoins, new Feature("Unlimited Coins", KeyCode.F2) },
+            { UtilityType.NoCooldown, new Feature("No Cooldown", KeyCode.F3) },
+            { UtilityType.InvulnerablePlants, new Feature("Invulnerable Plants", KeyCode.F4) },
+            { UtilityType.InvulnerableZombies, new Feature("Invulnerable Zombies", KeyCode.F5) },
+            { UtilityType.DoubleDamage, new Feature("Double Plant Damage", KeyCode.F6) },
+            { UtilityType.SuperDamage, new Feature("10x Plant Damage", KeyCode.F7) },
+            { UtilityType.StopZombieSpawn, new Feature("Stop Zombie Spawn", KeyCode.F8) },
+            { UtilityType.StopGameOver, new Feature("Stop Game Over", KeyCode.F9) },
+            { UtilityType.PlantEverywhere, new Feature("Plant Everywhere", KeyCode.F10) },
+            { UtilityType.DeveloperMode, new Feature("Developer Mode", KeyCode.F11) },
+            { UtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon) },
+            { UtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote) },
+            { UtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash) },
+            { UtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0) },
+            { UtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1) },
+            { UtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2) },
+            { UtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3) },
+            { UtilityType.GenerateJack, new Feature("Generate Jack-in-the-Box", KeyCode.Keypad4) },
+            { UtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5) },
+            { UtilityType.GenerateMecha, new Feature("Generate Mecha Fragment", KeyCode.Keypad6) },
+            { UtilityType.GenerateSuperMecha, new Feature("Generate Giga Mecha Fragment", KeyCode.Keypad7) },
+            { UtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8) },
+            { UtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9) },
+            { UtilityType.CharmAll, new Feature("Charm All Zombies", KeyCode.KeypadMultiply) },
+            { UtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus) },
+            { UtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus) },
+            { UtilityType.ShowUtilities, new Feature("Utilities List", KeyCode.F12, false) }
         };
 
-        public static string GetUtilities()
+        public static string GetUtilityStatus()
         {
-            StringBuilder status = new StringBuilder();
-            status.AppendLine("Utilities: ");
-            foreach (var utility in utilityLists.Values)
+            StringBuilder status = new StringBuilder("Utilities:\n");
+            foreach (var feature in _features.Values)
             {
-                status.AppendLine(utility.ToString());
+                status.AppendLine(feature.ToString());
             }
             return status.ToString();
         }
 
-        public static void ToggleUtility(UtilityType UtilityType)
+        public static void ToggleFeature(UtilityType type)
         {
-            if (!utilityLists.ContainsKey(UtilityType)) return;
-            utilityLists[UtilityType].ToggleUtility();
+            if (_features.TryGetValue(type, out var feature))
+            {
+                feature.IsActive = !feature.IsActive;
+                if (!IsSpecialFeature(type))
+                {
+                    Core.ShowToast($"{feature.Name} [{feature.IsActive ? "ON" : "OFF"}]");
+                }
+            }
         }
 
-        public static bool GetActive(UtilityType UtilityType)
+        public static bool IsFeatureActive(UtilityType type)
         {
-            if (!utilityLists.ContainsKey(UtilityType)) return false;
-            return utilityLists[UtilityType].IsActive;
+            return _features.TryGetValue(type, out var feature) && feature.IsActive;
         }
 
-        public static void SetActive(UtilityType UtilityType, bool value)
+        public static void SetFeatureActive(UtilityType type, bool value)
         {
-            if (!utilityLists.ContainsKey(UtilityType)) return;
-            utilityLists[UtilityType].IsActive = value;
+            if (_features.TryGetValue(type, out var feature))
+            {
+                feature.IsActive = value;
+            }
         }
 
         public static void OnLateUpdate()
         {
-            foreach (var (type, utility) in utilityLists)
+            foreach (var feature in _features.Values)
             {
-                if (utility.KeyCode != KeyCode.None && Enum.IsDefined(typeof(KeyCode), utility.KeyCode))
+                if (feature.KeyCode != KeyCode.None && Input.GetKeyDown(feature.KeyCode))
                 {
-                    if (Input.GetKeyDown(utility.KeyCode))
-                    {
-                        utility.ToggleUtility();
-                    }
+                    ToggleFeature(feature.Type);
                 }
             }
         }
 
         public static void SpawnItem(string resourcePath)
         {
-            GameObject gameObject = Resources.Load(resourcePath);
-            if (gameObject != null)
+            GameObject item = Resources.Load<GameObject>(resourcePath);
+            if (item != null)
             {
-                UnityEngine.Object.Instantiate(gameObject, new Vector2(0f, 0f), Quaternion.identity, GameAPP.board.transform);
+                Object.Instantiate(item, Vector2.zero, Quaternion.identity, GameAPP.board.transform);
+            }
+        }
+
+        private static bool IsSpecialFeature(UtilityType type)
+        {
+            return type == UtilityType.GenerateTrophy || type == UtilityType.GenerateFertilizer ||
+                   type == UtilityType.GenerateBucket || type == UtilityType.GenerateHelmet ||
+                   type == UtilityType.GenerateJack || type == UtilityType.GeneratePickaxe ||
+                   type == UtilityType.GenerateMecha || type == UtilityType.GenerateSuperMecha ||
+                   type == UtilityType.GenerateMeteor || type == UtilityType.GenerateSprout ||
+                   type == UtilityType.CharmAll || type == UtilityType.KillAllZombies || type == UtilityType.KillAllPlants;
+        }
+
+        private class Feature
+        {
+            public string Name { get; }
+            public UtilityType Type { get; }
+            public KeyCode KeyCode { get; }
+            public bool IsActive { get; set; }
+
+            public Feature(string name, KeyCode key, bool defaultValue = true)
+            {
+                Name = name;
+                Type = (UtilityType)(Enum.Parse(typeof(UtilityType), name.Replace(' ', '_')));
+                KeyCode = key;
+                IsActive = defaultValue;
+            }
+
+            public override string ToString()
+            {
+                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities)
+                {
+                    return $"[{KeyCode}] {Name}";
+                }
+                return $"[{KeyCode}] {Name} [{IsActive ? "ON" : "OFF"}]";
             }
         }
     }
