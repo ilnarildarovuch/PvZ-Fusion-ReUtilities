@@ -3,7 +3,7 @@ using MelonLoader;
 using UnityEngine;
 using Il2Cpp;
 
-[assembly: MelonInfo(typeof(Better_Game_Speed.Core), "Better Game Speed", "216.0.0", "dynaslash", null)]
+[assembly: MelonInfo(typeof(Better_Game_Speed.Core), "Better Game Speed", "22.0.0", "dynaslash", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
 
 namespace Better_Game_Speed
@@ -23,9 +23,9 @@ namespace Better_Game_Speed
 			MelonLogger.Msg("Better Game Speed is loaded!");
 			var category = MelonPreferences.CreateCategory("Better_Game_Speed", " ");
 
-			configDecrease = category.CreateEntry("Decrease_Speed_Hotkey", KeyCode.A, "Decrease game speed");
-			configIncrease = category.CreateEntry("Increase_Speed_Hotkey", KeyCode.D, "Increase game speed");
-			configPauseKey = category.CreateEntry("Pause_Hotkey", KeyCode.S, "Pause game");
+			configDecrease = category.CreateEntry("Decrease_Speed_Hotkey", KeyCode.Comma, "Decrease game speed");
+			configIncrease = category.CreateEntry("Increase_Speed_Hotkey", KeyCode.Slash, "Increase game speed");
+			configPauseKey = category.CreateEntry("Pause_Hotkey", KeyCode.Period, "Pause game");
 
 			configEnable = category.CreateEntry("EnableKeys", true, "Enable shortcut keys for adjusting game speed");
 			configSpeed = category.CreateEntry("Time", 1f, "Game speed");
