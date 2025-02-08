@@ -12,7 +12,7 @@
 		<AssemblyName>Multi_Giftbox</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<GamePath>D:\Games\[Series] PvZ Mods\(Fangame) Fusion\Chinese 2.1.6</GamePath>
+		<GamePath>D:\Games\[Series] PvZ Mods\(Fangame) Fusion\Chinese 2.2</GamePath>
 	</PropertyGroup>
 
 	<ItemGroup>
