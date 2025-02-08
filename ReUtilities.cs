@@ -84,7 +84,7 @@ namespace Utilities
         public static class CardUI_Patch
         {
             [HarmonyPostfix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(CardUI.Update))]
             private static void Update(CardUI instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
@@ -99,7 +99,7 @@ namespace Utilities
         public static class GloveMgr_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("CDUpdate")]
+            [HarmonyPatch(nameof(GloveMgr.CDUpdate))]
             private static void CDUpdate(GloveMgr instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
@@ -114,7 +114,7 @@ namespace Utilities
         public static class HammerMgr_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("CDUpdate")]
+            [HarmonyPatch(nameof(HammerMgr.CDUpdate))]
             private static void CDUpdate(HammerMgr instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.NoCooldown))
@@ -129,7 +129,7 @@ namespace Utilities
         public static class Board_Patch
         {
             [HarmonyPostfix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(Board.Update))]
             private static void Update(Board instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun))
@@ -173,7 +173,7 @@ namespace Utilities
         public static class Mouse_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("TryToSetPlantByCard")]
+            [HarmonyPatch(nameof(Mouse.TryToSetPlantByCard))]
             private static void TryToSetPlantByCard(Mouse instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.ColumnPlants))
@@ -193,7 +193,7 @@ namespace Utilities
         public static class InGameUIMgr_Patch
         {
             [HarmonyPostfix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(InGameUIMgr.Update))]
             private static void Update(InGameUIMgr instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedSun) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
@@ -207,7 +207,7 @@ namespace Utilities
         public static class Money_Patch
         {
             [HarmonyPostfix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(Money.Update))]
             private static void Update(Money instance)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.UnlimitedCoins) || Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode))
@@ -223,7 +223,7 @@ namespace Utilities
         public static class Plant_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("TakeDamage")]
+            [HarmonyPatch(nameof(Plant.TakeDamage))]
             private static void TakeDamage(ref int damage)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerablePlants))
@@ -233,7 +233,7 @@ namespace Utilities
             }
 
             [HarmonyPostfix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(Plant.Update))]
             private static void Update(Plant instance)
             {
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
@@ -247,7 +247,7 @@ namespace Utilities
         public static class Zombie_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("TakeDamage")]
+            [HarmonyPatch(nameof(Zombie.TakeDamage))]
             private static void TakeDamage(ref int damage)
             {
                 if (Utility.IsFeatureActive(Utility.UtilityType.InvulnerableZombies))
@@ -271,7 +271,7 @@ namespace Utilities
         public static class GameAPP_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("Update")]
+            [HarmonyPatch(nameof(GameAPP.Update))]
             private static void Update(GameAPP instance)
             {
                 instance.developerMode = Utility.IsFeatureActive(Utility.UtilityType.DeveloperMode);
@@ -318,7 +318,7 @@ namespace Utilities
         public static class GameLose_Patch
         {
             [HarmonyPrefix]
-            [HarmonyPatch("OnTriggerEnter2D")]
+            [HarmonyPatch(nameof(GameLose.OnTriggerEnter2D))]
             private static bool OnTriggerEnter2D() => !Utility.IsFeatureActive(Utility.UtilityType.StopGameOver);
         }
     }
@@ -371,10 +371,12 @@ namespace Utilities
         public static string GetUtilityStatus()
         {
             StringBuilder status = new StringBuilder("Utilities:\n");
+
             foreach (var feature in _features.Values)
             {
                 status.AppendLine(feature.ToString());
             }
+
             return status.ToString();
         }
 
@@ -383,6 +385,7 @@ namespace Utilities
             if (_features.TryGetValue(type, out var feature))
             {
                 feature.IsActive = !feature.IsActive;
+
                 if (!IsSpecialFeature(type))
                 {
                     Core.ShowToast($"{feature.Name} [{feature.IsActive ? "ON" : "OFF"}]");
@@ -416,7 +419,8 @@ namespace Utilities
 
         public static void SpawnItem(string resourcePath)
         {
-            GameObject item = Resources.Load<GameObject>(resourcePath);
+            GameObject item = Resources.Load(resourcePath);
+
             if (item != null)
             {
                 Object.Instantiate(item, Vector2.zero, Quaternion.identity, GameAPP.board.transform);
@@ -450,10 +454,8 @@ namespace Utilities
 
             public override string ToString()
             {
-                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities)
-                {
-                    return $"[{KeyCode}] {Name}";
-                }
+                if (IsSpecialFeature(Type) || Type == UtilityType.ShowUtilities){return $"[{KeyCode}] {Name}";}
+                
                 return $"[{KeyCode}] {Name} [{IsActive ? "ON" : "OFF"}]";
             }
         }
