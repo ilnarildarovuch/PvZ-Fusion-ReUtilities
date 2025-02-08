@@ -44,3 +44,5 @@ PvZ Fusion Helper is a **Melon Mod Suite**. Addons that will help you play the F
 
 - Better Game Speed
 	* Changed hotkeys
+- Plant and Zombie Spawner
+  	* Change Zombie hotkey (default to B, you can still change it in UserData/MelonPreferences.cfg)
