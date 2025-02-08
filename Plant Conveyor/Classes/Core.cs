@@ -10,8 +10,8 @@ namespace PlantConveyor
     public static class AssemblyInfo
     {
         public const string MODE_NAME = nameof(PlantConveyor);
-        public const string VERSION = "216.0.0";
-        public const string AUTHOR = "Dynaslash & Climeron";
+        public const string VERSION = "221.0.0";
+        public const string AUTHOR = "Dynaslash & Climeron & VTA";
     }
 
     public class Core : MelonMod
