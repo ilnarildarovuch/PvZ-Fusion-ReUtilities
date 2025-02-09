@@ -327,6 +327,9 @@ namespace ReUtilities
                 if (Input.GetKeyDown(KeyCode.Keypad9)) Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
                 if (Input.GetKeyDown(KeyCode.KeypadMultiply)) MindControlAllZombies();
                 if (Input.GetKeyDown(KeyCode.KeypadMinus)) KillAllZombies();
+                if (Input.GetKeyDown(KeyCode.Alpha5)) SpawnRandomCharmedZombie();
+                if (Input.GetKeyDown(KeyCode.Alpha6)) SpawnRandomZombie();
+                if (Input.GetKeyDown(KeyCode.Alpha7)) SpawnRandomPlant();
             }
 
             private static void MindControlAllZombies()
@@ -347,6 +350,25 @@ namespace ReUtilities
                     }
                 }
             }
+
+            private static void SpawnRandomCharmedZombie()
+            {
+                Mouse mouse = Mouse.Instance;
+                CreateZombie.Instance.SetZombieWithMindControl(mouse.theMouseRow, (ZombieType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(ZombieType)).Length), mouse.mouseX);
+            }
+
+            private static void SpawnRandomZombie()
+            {
+                Mouse mouse = Mouse.Instance;
+                CreateZombie.Instance.SetZombie(mouse.theMouseRow, (ZombieType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(ZombieType)).Length), mouse.mouseX);
+            }
+
+            private static void SpawnRandomPlant()
+            {
+                Mouse mouse = Mouse.Instance;
+                CreatePlant.Instance.SetPlant(mouse.theMouseColumn, mouse.theMouseRow, PlantType.Present);
+            }
+            
         }
 
         [HarmonyPatch(typeof(GameLose))]
@@ -381,7 +403,7 @@ namespace ReUtilities
             DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
             GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
             GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout,
-            CharmAll, KillAllZombies, KillAllPlants
+            CharmAll, KillAllZombies, KillAllPlants, SpawnPresentPlant, SpawnRandomZombie, SpawnRandomCharmedZombie
         }
 
         private static readonly Dictionary<ReUtilityType, Feature> _features = new()
@@ -397,6 +419,7 @@ namespace ReUtilities
             { ReUtilityType.ColumnPlants, new Feature("Column Plants", KeyCode.Semicolon, false) },
             { ReUtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote, false) },
             { ReUtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash, false) },
+            { ReUtilityType.RandomBullets, new Feature("Random Bullets", KeyCode.Alpha8, false) },
             { ReUtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0, false) },
             { ReUtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1, false) },
             { ReUtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2, false) },
@@ -410,7 +433,9 @@ namespace ReUtilities
             { ReUtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply, false) },
             { ReUtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus, false) },
             { ReUtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus, false) },
-            { ReUtilityType.RandomBullets, new Feature("Random Bullets", KeyCode.Alpha4, false) },
+            { ReUtilityType.SpawnRandomCharmedZombie, new Feature("Spawn Random Charmed Zombie", KeyCode.Alpha5, false) },
+            { ReUtilityType.SpawnRandomZombie, new Feature("Spawn Random Zombie", KeyCode.Alpha6, false) },
+            { ReUtilityType.SpawnPresentPlant, new Feature("Spawn Present Plant", KeyCode.Alpha7, false) },
             { ReUtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, true) }
         };
 
@@ -476,7 +501,9 @@ namespace ReUtilities
                    type == ReUtilityType.GenerateJack || type == ReUtilityType.GeneratePickaxe ||
                    type == ReUtilityType.GenerateMecha || type == ReUtilityType.GenerateSuperMecha ||
                    type == ReUtilityType.GenerateMeteor || type == ReUtilityType.GenerateSprout ||
-                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants;
+                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants ||
+                   type == ReUtilityType.SpawnRandomCharmedZombie || type == ReUtilityType.SpawnRandomZombie ||
+                   type == ReUtilityType.SpawnPresentPlant;
         }
 
         private class Feature
@@ -489,7 +516,6 @@ namespace ReUtilities
             public Feature(string name, KeyCode key, bool defaultValue = true)
             {
                 Name = name;
-                // Ensure the name matches exactly with the enum member by removing spaces or using explicit mapping
                 Type = (ReUtilityType)Enum.Parse(typeof(ReUtilityType), name.Replace(" ", ""), true);
                 KeyCode = key;
                 IsActive = defaultValue;
