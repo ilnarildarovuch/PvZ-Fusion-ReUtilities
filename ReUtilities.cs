@@ -476,8 +476,7 @@ namespace ReUtilities
                    type == ReUtilityType.GenerateJack || type == ReUtilityType.GeneratePickaxe ||
                    type == ReUtilityType.GenerateMecha || type == ReUtilityType.GenerateSuperMecha ||
                    type == ReUtilityType.GenerateMeteor || type == ReUtilityType.GenerateSprout ||
-                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants ||
-                   type == ReUtilityType.RandomBullets;
+                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants;
         }
 
         private class Feature
