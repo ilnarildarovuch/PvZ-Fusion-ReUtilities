@@ -356,6 +356,19 @@ namespace ReUtilities
             [HarmonyPatch(nameof(GameLose.OnTriggerEnter2D))]
             private static bool OnTriggerEnter2D() => !Utility.IsFeatureActive(Utility.ReUtilityType.StopGameOver);
         }
+        
+        [HarmonyPatch(typeof(CreateBullet))]
+        public static class CreateBullet_Patch
+        {
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(CreateBullet.SetBullet))]
+            static void SetBullet(ref int theBulletType) {
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.RandomBullets))
+                {
+                    theBulletType = UnityEngine.Random.Range(0, 100);
+                }
+            }
+        }
     }
 
     // Main Utility Class
@@ -364,7 +377,7 @@ namespace ReUtilities
         public enum ReUtilityType
         {
             UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants,
-            StopZombieSpawn, StopGameOver, PlantEverywhere,
+            StopZombieSpawn, StopGameOver, PlantEverywhere, RandomBullets,
             DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
             GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
             GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout,
@@ -397,6 +410,7 @@ namespace ReUtilities
             { ReUtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply, false) },
             { ReUtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus, false) },
             { ReUtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus, false) },
+            { ReUtilityType.RandomBullets, new Feature("Random Bullets", KeyCode.Alpha4, false) },
             { ReUtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, true) }
         };
 
@@ -462,7 +476,8 @@ namespace ReUtilities
                    type == ReUtilityType.GenerateJack || type == ReUtilityType.GeneratePickaxe ||
                    type == ReUtilityType.GenerateMecha || type == ReUtilityType.GenerateSuperMecha ||
                    type == ReUtilityType.GenerateMeteor || type == ReUtilityType.GenerateSprout ||
-                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants;
+                   type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants ||
+                   type == ReUtilityType.RandomBullets;
         }
 
         private class Feature
