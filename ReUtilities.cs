@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 using Il2Cpp;
+using UnityEngine.UIElements;
+using System.Runtime.CompilerServices;
 
 [assembly: MelonInfo(typeof(ReUtilities.Core), "ReUtilities", "221.0.0", "Open distribution", null)]
 [assembly: MelonGame("LanPiaoPiao", "PlantsVsZombiesRH")]
@@ -16,9 +18,12 @@ namespace ReUtilities
         private static DateTime _startTime;
         private static DateTime? _toastStartTime;
         private static string _toastMessage;
+        public static float BoxX = 10f;
+        public static float BoxY = 30f;
 
         public static bool IsSeedRainEnabled { get; set; } = false;
         public static bool IsScaredyDreamEnabled { get; set; } = false;
+        public static int ID_Spawn = 0;
 
         public override void OnEarlyInitializeMelon() => _startTime = DateTime.Now;
 
@@ -42,7 +47,7 @@ namespace ReUtilities
 
         private void DisplayUtilityList()
         {
-            if (Utility.IsFeatureActive(Utility.ReUtilityType.ShowUtilities) || DateTime.Now - _startTime < TimeSpan.FromSeconds(5))
+            if (Utility.IsFeatureActive(Utility.ReUtilityType.ShowUtilities))
             {
                 string utilityText = Utility.GetUtilityStatus();
                 int maxLineLength = 0;
@@ -54,7 +59,14 @@ namespace ReUtilities
                     lineCount++;
                 }
 
-                GUI.Button(new Rect(10f, 30f, maxLineLength * 10f, lineCount * 16f + 15f), utilityText);
+                GUI.Button(new Rect(BoxX, BoxY, maxLineLength * 10f, lineCount * 16f + 15f), utilityText);
+
+                if (Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    Vector3 mousePosition = Input.mousePosition;
+                    BoxX = mousePosition.x;
+                    BoxY = Screen.height - mousePosition.y;
+                }
             }
         }
 
@@ -191,11 +203,15 @@ namespace ReUtilities
 
             [HarmonyPrefix]
             [HarmonyPatch(nameof(CreatePlant.SetPlant))]
-            private static void SetPlant(ref bool isFreeSet)
+            private static void SetPlant(ref PlantType theSeedType, ref bool isFreeSet)
             {
                 if (Utility.IsFeatureActive(Utility.ReUtilityType.PlantEverywhere))
                 {
                     isFreeSet = true;
+                }
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.EnablePlantsReplacer))
+                {
+                    theSeedType = (PlantType)Core.ID_Spawn;
                 }
             }
 
@@ -295,7 +311,7 @@ namespace ReUtilities
             [HarmonyPatch(nameof(Plant.Update))]
             private static void Update(Plant __instance)
             {
-                if (Input.GetKeyDown(KeyCode.KeypadPlus))
+                if (Input.GetKeyDown(KeyCode.LeftAlt))
                 {
                     __instance.Die(0);
                 }
@@ -304,7 +320,7 @@ namespace ReUtilities
 
         [HarmonyPatch(typeof(GameAPP))]
         public static class GameAPP_Patch
-        {
+        {   
             [HarmonyPrefix]
             [HarmonyPatch(nameof(GameAPP.Update))]
             private static void Update(GameAPP __instance)
@@ -315,21 +331,26 @@ namespace ReUtilities
 
             private static void GenerateItems()
             {
-                if (Input.GetKeyDown(KeyCode.Keypad0)) Utility.SpawnItem("Board/Award/TrophyPrefab");
-                if (Input.GetKeyDown(KeyCode.Keypad1)) Utility.SpawnItem("Items/fertilize/Ferilize");
-                if (Input.GetKeyDown(KeyCode.Keypad2)) Utility.SpawnItem("Items/Bucket");
-                if (Input.GetKeyDown(KeyCode.Keypad3)) Utility.SpawnItem("Items/Helmet");
-                if (Input.GetKeyDown(KeyCode.Keypad4)) Utility.SpawnItem("Items/JackBox");
-                if (Input.GetKeyDown(KeyCode.Keypad5)) Utility.SpawnItem("Items/Pickaxe");
-                if (Input.GetKeyDown(KeyCode.Keypad6)) Utility.SpawnItem("Items/Machine");
-                if (Input.GetKeyDown(KeyCode.Keypad7)) Utility.SpawnItem("Items/SuperMachine");
-                if (Input.GetKeyDown(KeyCode.Keypad8)) Board.Instance.CreateUltimateMateorite();
-                if (Input.GetKeyDown(KeyCode.Keypad9)) Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
-                if (Input.GetKeyDown(KeyCode.KeypadMultiply)) MindControlAllZombies();
-                if (Input.GetKeyDown(KeyCode.KeypadMinus)) KillAllZombies();
+                if (Input.GetKeyDown(KeyCode.N)) Utility.SpawnItem("Board/Award/TrophyPrefab");
+                if (Input.GetKeyDown(KeyCode.M)) Utility.SpawnItem("Items/fertilize/Ferilize");
+                if (Input.GetKeyDown(KeyCode.V)) Utility.SpawnItem("Items/Bucket");
+                if (Input.GetKeyDown(KeyCode.C)) Utility.SpawnItem("Items/Helmet");
+                if (Input.GetKeyDown(KeyCode.X)) Utility.SpawnItem("Items/JackBox");
+                if (Input.GetKeyDown(KeyCode.Z)) Utility.SpawnItem("Items/Pickaxe");
+                if (Input.GetKeyDown(KeyCode.H)) Utility.SpawnItem("Items/Machine");
+                if (Input.GetKeyDown(KeyCode.O)) Utility.SpawnItem("Items/SuperMachine");
+                if (Input.GetKeyDown(KeyCode.P)) Board.Instance.CreateUltimateMateorite();
+                if (Input.GetKeyDown(KeyCode.Y)) Utility.SpawnItem("Items/SproutPotPrize/SproutPotPrize");
+                if (Input.GetKeyDown(KeyCode.T)) MindControlAllZombies();
+                if (Input.GetKeyDown(KeyCode.J)) KillAllZombies();
                 if (Input.GetKeyDown(KeyCode.Alpha5)) SpawnRandomCharmedZombie();
                 if (Input.GetKeyDown(KeyCode.Alpha6)) SpawnRandomZombie();
                 if (Input.GetKeyDown(KeyCode.Alpha7)) SpawnRandomPlant();
+                if (Input.GetKeyDown(KeyCode.K)) SpawnZombieBoss();
+                if (Input.GetKeyDown(KeyCode.L)) SpawnGoldZombieBoss();
+                if (Input.GetKeyDown(KeyCode.Equals)) Core.ID_Spawn++;
+                if (Input.GetKeyDown(KeyCode.Minus)) Core.ID_Spawn--;
+
             }
 
             private static void MindControlAllZombies()
@@ -368,6 +389,17 @@ namespace ReUtilities
                 Mouse mouse = Mouse.Instance;
                 CreatePlant.Instance.SetPlant(mouse.theMouseColumn, mouse.theMouseRow, PlantType.Present);
             }
+            private static void SpawnZombieBoss()
+            {
+                Mouse mouse = Mouse.Instance;
+                CreateZombie.Instance.SetZombie(mouse.theMouseRow, ZombieType.ZombieBoss, mouse.mouseX);
+            }
+
+            private static void SpawnGoldZombieBoss()
+            {
+                Mouse mouse = Mouse.Instance;
+                CreateZombie.Instance.SetZombie(mouse.theMouseRow, ZombieType.ZombieBoss2, mouse.mouseX);
+            }
             
         }
 
@@ -391,6 +423,24 @@ namespace ReUtilities
                 }
             }
         }
+
+        [HarmonyPatch(typeof(CreateZombie))]
+        public static class CreateZombie_Patch
+        {
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(CreateZombie.SetZombie))]
+            static void SetZombie(ref ZombieType theZombieType, ref bool isIdle) {
+                if (Utility.IsFeatureActive(Utility.ReUtilityType.EnableZombiesReplacer) && !isIdle) 
+                {
+                    theZombieType = (ZombieType)Core.ID_Spawn; 
+                }
+                else if (Utility.IsFeatureActive(Utility.ReUtilityType.RandomZombiesOnLevels) && !isIdle)
+                {
+                    theZombieType = (ZombieType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(ZombieType)).Length);
+                }
+            }
+        }
+        
     }
 
     // Main Utility Class
@@ -398,11 +448,11 @@ namespace ReUtilities
     {
         public enum ReUtilityType
         {
-            UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants,
-            StopZombieSpawn, StopGameOver, PlantEverywhere, RandomBullets,
-            DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain,
-            GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack,
-            GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout,
+            UnlimitedSun, UnlimitedCoins, NoCooldown, InvulnerablePlants, AddToSpawnID,
+            StopZombieSpawn, StopGameOver, PlantEverywhere, RandomBullets, RemoveFromSpawnID, EnableZombiesReplacer,
+            DeveloperMode, ShowUtilities, ColumnPlants, ScaredyDream, SeedRain, RandomZombiesOnLevels, SpawnGoldZombieBoss,
+            GenerateTrophy, GenerateFertilizer, GenerateBucket, GenerateHelmet, GenerateJack, EnablePlantsReplacer,
+            GeneratePickaxe, GenerateMecha, GenerateSuperMecha, GenerateMeteor, GenerateSprout, MoveUtilities, SpawnZombieBoss,
             CharmAll, KillAllZombies, KillAllPlants, SpawnPresentPlant, SpawnRandomZombie, SpawnRandomCharmedZombie
         }
 
@@ -420,23 +470,31 @@ namespace ReUtilities
             { ReUtilityType.ScaredyDream, new Feature("Scaredy Dream", KeyCode.Quote, false) },
             { ReUtilityType.SeedRain, new Feature("Seed Rain", KeyCode.Backslash, false) },
             { ReUtilityType.RandomBullets, new Feature("Random Bullets", KeyCode.Alpha8, false) },
-            { ReUtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.Keypad0, false) },
-            { ReUtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.Keypad1, false) },
-            { ReUtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.Keypad2, false) },
-            { ReUtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.Keypad3, false) },
-            { ReUtilityType.GenerateJack, new Feature("Generate Jack", KeyCode.Keypad4, false) },
-            { ReUtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Keypad5, false) },
-            { ReUtilityType.GenerateMecha, new Feature("Generate Mecha", KeyCode.Keypad6, false) },
-            { ReUtilityType.GenerateSuperMecha, new Feature("Generate Super Mecha", KeyCode.Keypad7, false) },
-            { ReUtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.Keypad8, false) },
-            { ReUtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Keypad9, false) },
-            { ReUtilityType.CharmAll, new Feature("Charm All", KeyCode.KeypadMultiply, false) },
-            { ReUtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.KeypadMinus, false) },
-            { ReUtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.KeypadPlus, false) },
+            { ReUtilityType.RandomZombiesOnLevels, new Feature("Random Zombies On Levels", KeyCode.Alpha0, false) },
+            { ReUtilityType.EnablePlantsReplacer, new Feature("Enable Plants Replacer", KeyCode.Comma, false) },
+            { ReUtilityType.EnableZombiesReplacer, new Feature("Enable Zombies Replacer", KeyCode.Period, false) },
+            { ReUtilityType.GenerateTrophy, new Feature("Generate Trophy", KeyCode.N, false) },
+            { ReUtilityType.GenerateFertilizer, new Feature("Generate Fertilizer", KeyCode.M, false) },
+            { ReUtilityType.GenerateBucket, new Feature("Generate Bucket", KeyCode.V, false) },
+            { ReUtilityType.GenerateHelmet, new Feature("Generate Helmet", KeyCode.C, false) },
+            { ReUtilityType.GenerateJack, new Feature("Generate Jack", KeyCode.X, false) },
+            { ReUtilityType.GeneratePickaxe, new Feature("Generate Pickaxe", KeyCode.Z, false) },
+            { ReUtilityType.GenerateMecha, new Feature("Generate Mecha", KeyCode.H, false) },
+            { ReUtilityType.GenerateSuperMecha, new Feature("Generate Super Mecha", KeyCode.O, false) },
+            { ReUtilityType.GenerateMeteor, new Feature("Generate Meteor", KeyCode.P, false) },
+            { ReUtilityType.GenerateSprout, new Feature("Generate Sprout", KeyCode.Y, false) },
+            { ReUtilityType.CharmAll, new Feature("Charm All", KeyCode.T, false) },
+            { ReUtilityType.KillAllZombies, new Feature("Kill All Zombies", KeyCode.J, false) },
+            { ReUtilityType.KillAllPlants, new Feature("Kill All Plants", KeyCode.LeftAlt, false) },
             { ReUtilityType.SpawnRandomCharmedZombie, new Feature("Spawn Random Charmed Zombie", KeyCode.Alpha5, false) },
             { ReUtilityType.SpawnRandomZombie, new Feature("Spawn Random Zombie", KeyCode.Alpha6, false) },
             { ReUtilityType.SpawnPresentPlant, new Feature("Spawn Present Plant", KeyCode.Alpha7, false) },
-            { ReUtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, true) }
+            { ReUtilityType.SpawnZombieBoss, new Feature("Spawn Zombie Boss", KeyCode.K, false) },
+            { ReUtilityType.SpawnGoldZombieBoss, new Feature("Spawn Gold Zombie Boss", KeyCode.L, false) },
+            { ReUtilityType.AddToSpawnID, new Feature("Add to Spawn ID", KeyCode.Equals, false) },
+            { ReUtilityType.RemoveFromSpawnID, new Feature("Remove from Spawn ID", KeyCode.Minus, false) },
+            { ReUtilityType.ShowUtilities, new Feature("Show Utilities", KeyCode.F12, true) },
+            { ReUtilityType.MoveUtilities, new Feature("Move Utilities", KeyCode.LeftControl, true) }
         };
 
         public static string GetUtilityStatus()
@@ -446,7 +504,8 @@ namespace ReUtilities
             {
                 status.AppendLine(feature.ToString());
             }
-            return status.ToString();
+            status.AppendLine("\nSpawn ID is: " + Core.ID_Spawn + ".\nThis used to spawn needed\nentities (zombies, plants)");
+            return status.ToString().Replace("Alpha", "");
         }
 
         public static void ToggleFeature(ReUtilityType type)
@@ -503,7 +562,9 @@ namespace ReUtilities
                    type == ReUtilityType.GenerateMeteor || type == ReUtilityType.GenerateSprout ||
                    type == ReUtilityType.CharmAll || type == ReUtilityType.KillAllZombies || type == ReUtilityType.KillAllPlants ||
                    type == ReUtilityType.SpawnRandomCharmedZombie || type == ReUtilityType.SpawnRandomZombie ||
-                   type == ReUtilityType.SpawnPresentPlant;
+                   type == ReUtilityType.SpawnPresentPlant || type == ReUtilityType.MoveUtilities ||
+                   type == ReUtilityType.AddToSpawnID || type == ReUtilityType.RemoveFromSpawnID ||
+                   type == ReUtilityType.SpawnZombieBoss || type == ReUtilityType.SpawnGoldZombieBoss;
         }
 
         private class Feature
